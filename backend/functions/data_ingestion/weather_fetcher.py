@@ -8,7 +8,7 @@ from loguru import logger
 from tenacity import retry, stop_after_attempt, wait_exponential
 import json
 
-from backend.models.fire_models import WeatherData, WeatherForecast
+from models.fire_models import WeatherForecast, WeatherData
 
 
 class WeatherFetcher:

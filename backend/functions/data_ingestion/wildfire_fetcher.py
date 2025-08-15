@@ -3,6 +3,8 @@ Wildfire data fetcher from CWFIS Datamart
 """
 import requests
 import json
+import csv
+from io import StringIO
 from datetime import datetime, timedelta
 from typing import List, Dict, Any, Optional
 from loguru import logger
@@ -10,15 +12,17 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 
-from backend.models.fire_models import Wildfire, FireStatus
+from models.fire_models import Wildfire, FireStatus
 
 
 class WildfireFetcher:
     """Fetches wildfire data from CWFIS Datamart"""
     
-    # CWFIS Datamart endpoints
-    CWFIS_BASE_URL = "https://cwfis.cfs.nrcan.gc.ca/datamart"
-    ACTIVE_FIRES_URL = f"{CWFIS_BASE_URL}/activefire/activefires.json"
+    # CWFIS Datamart endpoints - Updated to working URLs
+    CWFIS_BASE_URL = "https://cwfis.cfs.nrcan.gc.ca"
+    ACTIVE_FIRES_CSV_URL = f"{CWFIS_BASE_URL}/downloads/activefires/activefires.csv"
+    ACTIVE_FIRES_JSON_URL = f"{CWFIS_BASE_URL}/downloads/activefires/activefires.json"  # May not exist
+    ACTIVE_FIRES_KML_URL = f"{CWFIS_BASE_URL}/downloads/activefires/activefires.kml"
     
     # Newfoundland and Labrador bounding box (approximate)
     NL_BOUNDS = {
@@ -46,12 +50,18 @@ class WildfireFetcher:
         try:
             logger.info("Fetching active fires from CWFIS Datamart")
             
-            # Try JSON endpoint first
+            # Try CSV endpoint first (most reliable)
+            response = self._fetch_csv_fires()
+            if response:
+                return self._parse_csv_fires(response)
+            
+            # Try JSON endpoint second
+            logger.warning("CSV fetch failed, trying JSON format")
             response = self._fetch_json_fires()
             if response:
                 return self._parse_json_fires(response)
             
-            # Fallback to XML/KML if JSON fails
+            # Fallback to XML/KML if others fail
             logger.warning("JSON fetch failed, trying XML/KML format")
             response = self._fetch_kml_fires()
             if response:
@@ -64,11 +74,24 @@ class WildfireFetcher:
             logger.error(f"Error fetching active fires: {e}")
             raise
     
+    def _fetch_csv_fires(self) -> Optional[str]:
+        """Fetch fires in CSV format"""
+        try:
+            response = self.session.get(
+                self.ACTIVE_FIRES_CSV_URL,
+                timeout=30
+            )
+            response.raise_for_status()
+            return response.text
+        except Exception as e:
+            logger.error(f"Error fetching CSV fires: {e}")
+            return None
+    
     def _fetch_json_fires(self) -> Optional[Dict[str, Any]]:
         """Fetch fires in JSON format"""
         try:
             response = self.session.get(
-                self.ACTIVE_FIRES_URL,
+                self.ACTIVE_FIRES_JSON_URL,
                 timeout=30
             )
             response.raise_for_status()
@@ -80,13 +103,61 @@ class WildfireFetcher:
     def _fetch_kml_fires(self) -> Optional[str]:
         """Fetch fires in KML format"""
         try:
-            kml_url = f"{self.CWFIS_BASE_URL}/activefire/activefires.kml"
-            response = self.session.get(kml_url, timeout=30)
+            response = self.session.get(self.ACTIVE_FIRES_KML_URL, timeout=30)
             response.raise_for_status()
             return response.text
         except Exception as e:
             logger.error(f"Error fetching KML fires: {e}")
             return None
+    
+    def _parse_csv_fires(self, csv_data: str) -> List[Wildfire]:
+        """Parse CSV fire data"""
+        fires = []
+        
+        try:
+            csv_file = StringIO(csv_data)
+            reader = csv.DictReader(csv_file)
+            
+            for row in reader:
+                # Clean up keys (remove leading/trailing spaces)
+                row = {k.strip(): v.strip() if v else v for k, v in row.items()}
+                
+                # Extract coordinates (column names have spaces)
+                try:
+                    lat = float(row.get('lat', row.get('latitude', 0)))
+                    lon = float(row.get('lon', row.get('longitude', 0)))
+                except (ValueError, TypeError):
+                    continue
+                
+                # Check if fire is in NL bounds
+                if not self._is_in_nl_bounds(lat, lon):
+                    continue
+                
+                # Create properties dict from CSV row (normalize keys)
+                properties = {
+                    'fire_id': row.get('firename', ''),
+                    'agency': row.get('agency', ''),
+                    'lat': lat,
+                    'lon': lon,
+                    'latitude': lat,
+                    'longitude': lon,
+                    'hectares': row.get('hectares', 0),
+                    'status': row.get('stage_of_control', 'UNK'),
+                    'start_date': row.get('startdate', ''),
+                    'response_type': row.get('response_type', ''),
+                    'timezone': row.get('timezone', 'GMT')
+                }
+                
+                # Create wildfire object
+                fire = self._create_wildfire_from_properties(properties, lat, lon)
+                if fire:
+                    fires.append(fire)
+                    
+        except Exception as e:
+            logger.error(f"Error parsing CSV fires: {e}")
+        
+        logger.info(f"Found {len(fires)} active fires in NL region from CSV")
+        return fires
     
     def _parse_json_fires(self, data: Dict[str, Any]) -> List[Wildfire]:
         """Parse JSON fire data"""

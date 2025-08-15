@@ -12,12 +12,12 @@ from datetime import datetime, timedelta, timedelta
 from typing import Dict, Any
 
 # Add backend to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent))
 
-from backend.functions.data_ingestion.wildfire_fetcher import WildfireFetcher
-from backend.functions.data_ingestion.weather_fetcher import WeatherFetcher
-from backend.functions.data_ingestion.static_generator import StaticDataGenerator
-from backend.models.fire_models import AQHIPrediction
+from functions.data_ingestion.wildfire_fetcher import WildfireFetcher
+from functions.data_ingestion.weather_fetcher import WeatherFetcher
+from functions.data_ingestion.static_generator import StaticDataGenerator
+from models.fire_models import AQHIPrediction
 from loguru import logger
 
 

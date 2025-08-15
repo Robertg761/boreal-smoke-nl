@@ -9,7 +9,7 @@ from typing import Dict, Any, List
 from pathlib import Path
 from loguru import logger
 
-from backend.models.fire_models import Wildfire, WeatherForecast, AQHIPrediction
+from models.fire_models import Wildfire, WeatherForecast, AQHIPrediction
 
 
 class StaticDataGenerator:
@@ -228,8 +228,8 @@ def generate_static_data(request=None):
     Cloud Function entry point for static data generation
     Runs every 30 minutes to update static JSON files
     """
-    from backend.functions.data_ingestion.wildfire_fetcher import WildfireFetcher
-    from backend.functions.data_ingestion.weather_fetcher import WeatherFetcher
+    from functions.data_ingestion.wildfire_fetcher import WildfireFetcher
+    from functions.data_ingestion.weather_fetcher import WeatherFetcher
     
     try:
         # Fetch data

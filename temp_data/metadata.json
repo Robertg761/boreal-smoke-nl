@@ -1,0 +1,22 @@
+{
+  "last_updated": "2025-08-15T16:51:42.371257",
+  "next_update": "2025-08-15T16:30:00.371257",
+  "files": {
+    "main": "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\data.json",
+    "communities": [
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-st-johns.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-mount-pearl.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-conception-bay-south.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-paradise.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-holyrood.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-bay-roberts.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-carbonear.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-harbour-grace.json"
+    ]
+  },
+  "version": "1.0.0",
+  "data_sources": [
+    "Canadian Wildland Fire Information System (CWFIS)",
+    "Environment Canada MSC GeoMet API"
+  ]
+}
