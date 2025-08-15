@@ -1,9 +1,9 @@
 # Core dependencies
 python-dotenv==1.0.0
 requests==2.31.0
-numpy==1.24.3
-scipy==1.11.1
-pandas==2.0.3
+numpy==1.26.4
+scipy==1.13.1
+pandas==2.2.2
 
 # Firebase/Firestore
 firebase-admin==6.1.0
@@ -22,9 +22,9 @@ functions-framework==3.4.0
 google-cloud-storage==2.10.0
 
 # Data processing
-geojson==3.0.1
-shapely==2.0.1
-pyproj==3.6.0
+geojson==3.1.0
+shapely==2.0.4
+pyproj==3.6.1
 
 # Date/time handling
 python-dateutil==2.8.2
