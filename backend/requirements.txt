@@ -1,0 +1,56 @@
+# Core dependencies
+python-dotenv==1.0.0
+requests==2.31.0
+numpy==1.24.3
+scipy==1.11.1
+pandas==2.0.3
+
+# Firebase/Firestore
+firebase-admin==6.1.0
+google-cloud-firestore==2.11.1
+
+# API Framework (for local development)
+fastapi==0.100.0
+uvicorn[standard]==0.23.1
+pydantic==2.0.3
+
+# AWS Lambda (if using AWS)
+boto3==1.28.15
+
+# Google Cloud Functions (if using GCP)
+functions-framework==3.4.0
+google-cloud-storage==2.10.0
+
+# Data processing
+geojson==3.0.1
+shapely==2.0.1
+pyproj==3.6.0
+
+# Date/time handling
+python-dateutil==2.8.2
+pytz==2023.3
+
+# Testing
+pytest==7.4.0
+pytest-asyncio==0.21.1
+pytest-mock==3.11.1
+
+# Development tools
+black==23.7.0
+flake8==6.0.0
+mypy==1.4.1
+
+# HTTP client with retry logic
+httpx==0.24.1
+tenacity==8.2.2
+
+# Scheduling (for local development)
+schedule==1.2.0
+apscheduler==3.10.1
+
+# Logging
+loguru==0.7.0
+
+# XML parsing (for some CWFIS data)
+lxml==4.9.3
+beautifulsoup4==4.12.2
