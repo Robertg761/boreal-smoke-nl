@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boreal Smoke NL - API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+        
+        .status-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: #f0f9ff;
+            color: #0369a1;
+            font-weight: 600;
+        }
+        
+        .status-indicator.online {
+            background: #f0fdf4;
+            color: #15803d;
+        }
+        
+        .pulse {
+            width: 10px;
+            height: 10px;
+            background: #22c55e;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+            }
+        }
+        
+        .endpoints {
+            display: grid;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .endpoint {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .endpoint-url {
+            font-family: 'Courier New', monospace;
+            background: #1e293b;
+            color: #22d3ee;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 10px 0;
+            word-break: break-all;
+            font-size: 14px;
+        }
+        
+        .endpoint-description {
+            color: #64748b;
+            margin-top: 10px;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #64748b;
+            margin-top: 5px;
+        }
+        
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 50px;
+            opacity: 0.9;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔥 Boreal Smoke NL</h1>
+            <p>Real-time Air Quality Data API for Newfoundland & Labrador</p>
+        </div>
+        
+        <div class="status-card">
+            <div class="status-indicator online">
+                <div class="pulse"></div>
+                <span>API Online</span>
+            </div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value" id="lastUpdate">--</div>
+                    <div class="stat-label">Last Update</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="activeFiresCount">--</div>
+                    <div class="stat-label">Active Fires</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="updateFrequency">30 min</div>
+                    <div class="stat-label">Update Frequency</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value" id="dataSize">--</div>
+                    <div class="stat-label">Data Size</div>
+                </div>
+            </div>
+            
+            <div class="endpoints">
+                <h2>Available Endpoints</h2>
+                
+                <div class="endpoint">
+                    <h3>📊 Main Data Feed</h3>
+                    <div class="endpoint-url">https://robertg761.github.io/boreal-smoke-nl/data.json</div>
+                    <div class="endpoint-description">
+                        Complete dataset including all active fires, weather forecasts, and air quality predictions for the next 12 hours.
+                    </div>
+                </div>
+                
+                <div class="endpoint">
+                    <h3>🗺️ Smoke Overlay (GeoJSON)</h3>
+                    <div class="endpoint-url">https://robertg761.github.io/boreal-smoke-nl/smoke-overlay.geojson</div>
+                    <div class="endpoint-description">
+                        GeoJSON formatted smoke plume predictions for direct map overlay rendering.
+                    </div>
+                </div>
+                
+                <div class="endpoint">
+                    <h3>📍 Community Data</h3>
+                    <div class="endpoint-url">https://robertg761.github.io/boreal-smoke-nl/community-{name}.json</div>
+                    <div class="endpoint-description">
+                        Individual community forecasts. Replace {name} with: st-johns, mount-pearl, conception-bay-south, paradise, holyrood, bay-roberts, carbonear, or harbour-grace.
+                    </div>
+                </div>
+                
+                <div class="endpoint">
+                    <h3>ℹ️ Metadata</h3>
+                    <div class="endpoint-url">https://robertg761.github.io/boreal-smoke-nl/metadata.json</div>
+                    <div class="endpoint-description">
+                        Information about data freshness, update schedule, and data sources.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                Built for the people of Newfoundland & Labrador<br>
+                <a href="https://github.com/Robertg761/boreal-smoke-nl">View on GitHub</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Fetch and display live stats
+        async function updateStats() {
+            try {
+                const response = await fetch('./metadata.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Update last update time
+                    const lastUpdate = new Date(data.last_updated);
+                    const now = new Date();
+                    const diffMinutes = Math.floor((now - lastUpdate) / 60000);
+                    
+                    document.getElementById('lastUpdate').textContent = 
+                        diffMinutes < 60 ? `${diffMinutes} min ago` : 
+                        `${Math.floor(diffMinutes / 60)} hours ago`;
+                }
+                
+                // Fetch main data for stats
+                const dataResponse = await fetch('./data.json');
+                if (dataResponse.ok) {
+                    const mainData = await dataResponse.json();
+                    
+                    // Update fire count
+                    document.getElementById('activeFiresCount').textContent = 
+                        mainData.wildfires ? mainData.wildfires.length : '0';
+                    
+                    // Calculate data size
+                    const dataSize = new Blob([JSON.stringify(mainData)]).size;
+                    document.getElementById('dataSize').textContent = 
+                        `${(dataSize / 1024).toFixed(1)} KB`;
+                }
+            } catch (error) {
+                console.log('Stats not yet available');
+                document.getElementById('lastUpdate').textContent = 'Initializing...';
+                document.getElementById('activeFiresCount').textContent = '0';
+                document.getElementById('dataSize').textContent = '-- KB';
+            }
+        }
+        
+        // Update stats on load and every minute
+        updateStats();
+        setInterval(updateStats, 60000);
+    </script>
+</body>
+</html>
