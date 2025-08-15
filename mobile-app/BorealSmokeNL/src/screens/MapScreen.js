@@ -20,7 +20,6 @@ import {
 import MapView, { Marker, Circle, Overlay, PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DataService from '../services/DataService';
-import CommunitySelector from '../components/CommunitySelector';
 import InfoPanel from '../components/InfoPanel';
 import Legend from '../components/Legend';
 import FireStatsDashboard from '../components/FireStatsDashboard';
@@ -112,15 +111,7 @@ const MapScreen = () => {
       const fetchedData = await DataService.fetchData();
       setData(fetchedData);
       
-      // Set default community if none selected
-      if (!selectedInfo && fetchedData.communities?.length > 0) {
-        // Default to St. John's if available
-        const stjohns = fetchedData.communities.find(c => 
-          c.name === "St. John's"
-        );
-        const defaultCommunity = stjohns || fetchedData.communities[0];
-        setSelectedInfo({ type: 'community', ...defaultCommunity });
-      }
+      // No default selection needed anymore
     } catch (error) {
       console.error('Error loading data:', error);
       Alert.alert(
@@ -149,45 +140,6 @@ const MapScreen = () => {
     setSelectedInfo({ type: 'fire', ...fire });
   }, []);
 
-  /**
-   * Handle community selection - memoized
-   */
-  const onCommunitySelect = useCallback((community) => {
-    const emergencyInfo = getEmergencyInfo(community);
-    
-    // Add emergency info to selected community data
-    const communityWithEmergency = {
-      type: 'community',
-      ...community,
-      emergency: emergencyInfo,
-    };
-    
-    setSelectedInfo(communityWithEmergency);
-    
-    // Show alert for evacuation zones
-    if (emergencyInfo?.level === 'EVACUATE') {
-      Alert.alert(
-        '⚠️ EVACUATION NOTICE',
-        `${community.name} - ${emergencyInfo.distance.toFixed(1)}km from active fire\n\n` +
-        emergencyInfo.zones.join('\n\n'),
-        [
-          { text: 'Emergency Info', onPress: () => {} },
-          { text: 'OK', style: 'cancel' }
-        ],
-        { cancelable: false }
-      );
-    }
-    
-    // Animate map to selected community
-    if (mapRef.current && community) {
-      mapRef.current.animateToRegion({
-        latitude: community.lat,
-        longitude: community.lon,
-        latitudeDelta: 0.5,
-        longitudeDelta: 0.5,
-      }, 1000);
-    }
-  }, [getEmergencyInfo, mapRef]);
 
   /**
    * Get current predictions for the selected hour
@@ -342,171 +294,7 @@ const MapScreen = () => {
 
 
 
-  /**
-   * Check if community is in emergency state and get evacuation details - memoized
-   */
-  const getEmergencyInfo = useCallback((community) => {
-    if (!data?.wildfires) return null;
-    
-    const ocFires = data.wildfires.filter(fire => fire.status === 'OC');
-    let closestFire = null;
-    let minDistance = Infinity;
-    
-    for (const fire of ocFires) {
-      const distance = Math.sqrt(
-        Math.pow(fire.latitude - community.lat, 2) + 
-        Math.pow(fire.longitude - community.lon, 2)
-      ) * 111; // Rough conversion to km
-      
-      if (distance < minDistance) {
-        minDistance = distance;
-        closestFire = fire;
-      }
-    }
-    
-    if (minDistance < 10) {
-      return {
-        level: 'EVACUATE',
-        distance: minDistance,
-        fire: closestFire,
-        zones: getEvacuationZones(community, minDistance),
-      };
-    } else if (minDistance < 20) {
-      return {
-        level: 'ALERT',
-        distance: minDistance,
-        fire: closestFire,
-        zones: [],
-      };
-    }
-    
-    return null;
-  }, [data?.wildfires]);
-  
-  /**
-   * Get specific evacuation zones based on distance
-   */
-  const getEvacuationZones = (community, distance) => {
-    const zones = [];
-    
-    if (distance < 5) {
-      zones.push('All residents - Immediate evacuation');
-      zones.push('Emergency shelters open at nearest safe community');
-    } else if (distance < 10) {
-      zones.push('Eastern districts - Evacuate immediately');
-      zones.push('Western districts - Prepare for evacuation');
-      zones.push('Elderly and vulnerable residents - Priority evacuation');
-    }
-    
-    return zones;
-  };
 
-  /**
-   * Render community markers - memoized
-   */
-  const renderCommunityMarkers = useMemo(() => {
-    if (!data?.communities) return null;
-    
-    return data.communities.map((community) => {
-      const emergencyInfo = getEmergencyInfo(community);
-      const isEvacuation = emergencyInfo?.level === 'EVACUATE';
-      const isAlert = emergencyInfo?.level === 'ALERT';
-      
-      return (
-        <Marker
-          key={`community-${community.name}`}
-          coordinate={{
-            latitude: community.lat,
-            longitude: community.lon,
-          }}
-          onPress={() => onCommunitySelect(community)}
-          anchor={{ x: 0.5, y: 0.5 }}
-          tracksViewChanges={false}
-        >
-          {isEvacuation ? (
-            animationEnabled ? (
-              <Animated.View style={{
-                padding: 8,
-                borderRadius: 16,
-                backgroundColor: '#FF0000',
-                borderColor: '#FFF',
-                borderWidth: 2,
-                transform: [{ scale: emergencyPulse }],
-                elevation: 5,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.3,
-                shadowRadius: 3,
-              }}>
-                <Icon 
-                  name="alert-octagon" 
-                  size={20} 
-                  color="#FFF" 
-                />
-              </Animated.View>
-            ) : (
-              <View style={{
-                padding: 8,
-                borderRadius: 16,
-                backgroundColor: '#FF0000',
-                borderColor: '#FFF',
-                borderWidth: 2,
-                elevation: 5,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.3,
-                shadowRadius: 3,
-              }}>
-                <Icon 
-                  name="alert-octagon" 
-                  size={20} 
-                  color="#FFF" 
-                />
-              </View>
-            )
-          ) : isAlert ? (
-            <View style={{
-              padding: 8,
-              borderRadius: 14,
-              backgroundColor: '#FF9800',
-              borderColor: '#FFF',
-              borderWidth: 2,
-              elevation: 4,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.25,
-              shadowRadius: 2,
-            }}>
-              <Icon 
-                name="alert" 
-                size={18} 
-                color="#FFF" 
-              />
-            </View>
-          ) : (
-            <View style={{
-              padding: 6,
-              borderRadius: 12,
-              backgroundColor: '#667eea',
-              borderColor: '#FFF',
-              borderWidth: 1,
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 1 },
-              shadowOpacity: 0.2,
-              shadowRadius: 1,
-            }}>
-              <Icon 
-                name="home-city" 
-                size={16} 
-                color="#FFF" 
-              />
-            </View>
-          )}
-        </Marker>
-      );
-    });
-  }, [data?.communities, getEmergencyInfo, onCommunitySelect, animationEnabled, emergencyPulse]);
 
   // Show loading screen
   if (loading) {
@@ -532,33 +320,20 @@ const MapScreen = () => {
         showsCompass={true}
       >
         {renderSmokeOverlays}
-        {/* Air quality overlay disabled - colors shown on community markers instead */}
-        {/* {renderAirQualityOverlay()} */}
         {renderFireMarkers}
-        {renderCommunityMarkers}
       </MapView>
 
-      {/* Top Controls */}
-      <View style={styles.topControls}>
-        {/* Community Selector */}
-        <CommunitySelector
-          communities={data?.communities || []}
-          selectedCommunity={selectedInfo?.type === 'community' ? selectedInfo : null}
-          onSelect={onCommunitySelect}
+      {/* Map Type Toggle */}
+      <TouchableOpacity
+        style={styles.mapTypeButton}
+        onPress={() => setMapType(mapType === 'standard' ? 'satellite' : 'standard')}
+      >
+        <Icon 
+          name={mapType === 'standard' ? 'satellite-variant' : 'map'} 
+          size={24} 
+          color="#333" 
         />
-
-        {/* Map Type Toggle */}
-        <TouchableOpacity
-          style={styles.mapTypeButton}
-          onPress={() => setMapType(mapType === 'standard' ? 'satellite' : 'standard')}
-        >
-          <Icon 
-            name={mapType === 'standard' ? 'satellite-variant' : 'map'} 
-            size={24} 
-            color="#333" 
-          />
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
 
       {/* Fire Statistics Dashboard */}
       <FireStatsDashboard 
@@ -629,6 +404,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mapTypeButton: {
+    position: 'absolute',
+    top: Platform.OS === 'ios' ? 50 : 30,
+    right: 10,
     backgroundColor: '#FFF',
     padding: 10,
     borderRadius: 25,

@@ -7,7 +7,6 @@ const InfoPanel = ({ data, onClose }) => {
   if (!data) return null;
 
   const isFire = data.type === 'fire';
-  const isCommunity = data.type === 'community';
 
   const renderFireDetails = () => {
     const location = getFireLocation(data);
@@ -58,29 +57,6 @@ const InfoPanel = ({ data, onClose }) => {
     );
   };
 
-  const renderCommunityDetails = () => {
-    const location = getLocationDescription(data.lat, data.lon, data.name);
-    
-    return (
-      <View>
-        <View style={styles.header}>
-          <Icon name="home-city" size={24} color="#667eea" />
-          <View style={styles.titleContainer}>
-            <Text style={styles.title}>{data.name}</Text>
-            <Text style={styles.subtitle}>{location.secondary}</Text>
-          </View>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>Region:</Text>
-          <Text style={styles.detailValue}>{location.secondary || 'Newfoundland and Labrador'}</Text>
-        </View>
-        <View style={styles.detailRow}>
-          <Text style={styles.detailLabel}>GPS:</Text>
-          <Text style={styles.detailCoords}>{location.coordinates}</Text>
-        </View>
-      </View>
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -89,7 +65,6 @@ const InfoPanel = ({ data, onClose }) => {
       </TouchableOpacity>
       
       {isFire && renderFireDetails()}
-      {isCommunity && renderCommunityDetails()}
     </View>
   );
 };

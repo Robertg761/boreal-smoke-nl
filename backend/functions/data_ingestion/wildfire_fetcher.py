@@ -133,6 +133,11 @@ class WildfireFetcher:
                 if not self._is_in_nl_bounds(lat, lon):
                     continue
                 
+                # Only include fires from NL agency
+                agency = row.get('agency', '').lower()
+                if agency != 'nl':
+                    continue
+                
                 # Create properties dict from CSV row (normalize keys)
                 properties = {
                     'fire_id': row.get('firename', ''),
@@ -181,6 +186,11 @@ class WildfireFetcher:
                 if not self._is_in_nl_bounds(lat, lon):
                     continue
                 
+                # Only include fires from NL agency
+                agency = properties.get('agency', '').lower()
+                if agency != 'nl':
+                    continue
+                
                 # Parse fire properties
                 fire = self._create_wildfire_from_properties(properties, lat, lon)
                 if fire:
@@ -227,6 +237,11 @@ class WildfireFetcher:
                         value = data.find('value').text if data.find('value') else None
                         if name and value:
                             properties[name] = value
+                
+                # Only include fires from NL agency
+                agency = properties.get('agency', '').lower()
+                if agency != 'nl':
+                    continue
                 
                 # Create wildfire object
                 fire = self._create_wildfire_from_properties(properties, lat, lon)

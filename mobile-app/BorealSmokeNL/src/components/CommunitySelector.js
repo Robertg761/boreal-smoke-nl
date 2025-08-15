@@ -45,9 +45,7 @@ const CommunitySelector = ({ communities, selectedCommunity, onSelect }) => {
                   }}
                 >
                   <Text style={styles.communityName}>{item.name}</Text>
-                  <View style={[styles.aqhiBadge, { backgroundColor: getAQHIColor(item.currentAQHI) }]}>
-                    <Text style={styles.aqhiValue}>{item.currentAQHI || 1}</Text>
-                  </View>
+                  <Icon name="chevron-right" size={20} color="#999" />
                 </TouchableOpacity>
               )}
             />
@@ -58,12 +56,6 @@ const CommunitySelector = ({ communities, selectedCommunity, onSelect }) => {
   );
 };
 
-const getAQHIColor = (value) => {
-  if (value <= 3) return '#00FF00';
-  if (value <= 6) return '#FFFF00';
-  if (value <= 10) return '#FFA500';
-  return '#FF0000';
-};
 
 const styles = StyleSheet.create({
   selector: {
