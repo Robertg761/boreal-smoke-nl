@@ -8,7 +8,7 @@ import sys
 import json
 import subprocess
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timedelta
 from typing import Dict, Any
 
 # Add backend to path
@@ -202,15 +202,15 @@ def main():
     print(json.dumps(result, indent=2))
     
     if result['status'] == 'success':
-        print(f"\n✅ Data updated successfully!")
-        print(f"📊 Wildfires: {result['wildfires_count']}")
-        print(f"🔮 Predictions: {result['predictions_count']}")
-        print(f"📁 Files generated: {result['files_generated']}")
-        print(f"\n🌐 View live data at:")
+        print(f"\nData updated successfully!")
+        print(f"Wildfires: {result['wildfires_count']}")
+        print(f"Predictions: {result['predictions_count']}")
+        print(f"Files generated: {result['files_generated']}")
+        print(f"\nView live data at:")
         print(f"   https://robertg761.github.io/boreal-smoke-nl/")
         print(f"   https://robertg761.github.io/boreal-smoke-nl/data.json")
     else:
-        print(f"\n❌ Update failed: {result.get('error', 'Unknown error')}")
+        print(f"\nUpdate failed: {result.get('error', 'Unknown error')}")
 
 
 if __name__ == "__main__":

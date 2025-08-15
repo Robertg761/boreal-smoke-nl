@@ -4,7 +4,7 @@ Generates static JSON files to be served via CDN instead of database queries
 """
 import json
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Any, List
 from pathlib import Path
 from loguru import logger
