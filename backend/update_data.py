@@ -26,11 +26,7 @@ class DataUpdater:
     
     def __init__(self):
         self.root_dir = Path(__file__).parent.parent
-        self.docs_dir = self.root_dir / "docs"
         self.git_path = r"E:\Program Files\Git\bin\git.exe"
-        
-        # Ensure docs directory exists
-        self.docs_dir.mkdir(exist_ok=True)
         
         logger.add("data_update.log", rotation="10 MB")
         
@@ -119,7 +115,10 @@ class DataUpdater:
             
             # Step 4: Generate static files
             logger.info("Generating static JSON files...")
-            generator = StaticDataGenerator(output_dir=str(self.docs_dir))
+            # Files will be generated to a temp directory first
+            temp_dir = self.root_dir / "temp_data"
+            temp_dir.mkdir(exist_ok=True)
+            generator = StaticDataGenerator(output_dir=str(temp_dir))
             files = generator.generate_all_data_files(
                 wildfires,
                 weather_forecasts,
@@ -162,8 +161,19 @@ class DataUpdater:
             # Checkout gh-pages branch
             subprocess.run([self.git_path, "checkout", "gh-pages"], check=True)
             
+            # Copy files from temp to root of gh-pages
+            import shutil
+            temp_dir = self.root_dir / "temp_data"
+            for file in temp_dir.glob("*.json"):
+                shutil.copy2(file, self.root_dir / file.name)
+            for file in temp_dir.glob("*.geojson"):
+                shutil.copy2(file, self.root_dir / file.name)
+            
+            # Clean up temp directory
+            shutil.rmtree(temp_dir, ignore_errors=True)
+            
             # Add changes
-            subprocess.run([self.git_path, "add", "docs/"], check=True)
+            subprocess.run([self.git_path, "add", "*.json", "*.geojson"], check=True)
             
             # Commit with timestamp
             commit_message = f"Data update: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
