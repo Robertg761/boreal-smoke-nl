@@ -23,6 +23,7 @@ import CommunitySelector from '../components/CommunitySelector';
 import FireDetailsModal from '../components/FireDetailsModal';
 import InfoPanel from '../components/InfoPanel';
 import Legend from '../components/Legend';
+import FireStatsDashboard from '../components/FireStatsDashboard';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -43,6 +44,7 @@ const MapScreen = () => {
   const [selectedFire, setSelectedFire] = useState(null);
   const [currentHour, setCurrentHour] = useState(0);
   const [mapType, setMapType] = useState('standard');
+  const [showStats, setShowStats] = useState(false);
   
   const mapRef = useRef(null);
 
@@ -150,26 +152,135 @@ const MapScreen = () => {
   };
 
   /**
+   * Get marker size based on fire size
+   */
+  const getFireMarkerSize = (hectares) => {
+    if (hectares < 10) return 24;
+    if (hectares < 100) return 30;
+    if (hectares < 1000) return 36;
+    if (hectares < 5000) return 42;
+    return 48; // Very large fires (like the 9,127 hectare one)
+  };
+
+  /**
+   * Get icon size based on marker size
+   */
+  const getFireIconSize = (hectares) => {
+    const markerSize = getFireMarkerSize(hectares);
+    return markerSize * 0.6; // Icon is 60% of marker size
+  };
+
+  /**
+   * Render smoke overlays for Out of Control fires
+   */
+  const renderSmokeOverlays = () => {
+    if (!data?.wildfires) return null;
+    
+    // Only show smoke for Out of Control fires
+    const ocFires = data.wildfires.filter(fire => fire.status === 'OC');
+    
+    return ocFires.map((fire) => {
+      // Calculate smoke radius based on fire size
+      const getBaseRadius = (hectares) => {
+        if (hectares < 100) return 8000;
+        if (hectares < 1000) return 15000;
+        if (hectares < 5000) return 25000;
+        return 35000; // Very large fires like the 9,127 hectare one
+      };
+      
+      const baseRadius = getBaseRadius(fire.size_hectares || 0);
+      
+      return (
+        <React.Fragment key={`smoke-${fire.fire_id}`}>
+          {/* Outer smoke layer - lightest */}
+          <Circle
+            center={{
+              latitude: fire.latitude,
+              longitude: fire.longitude,
+            }}
+            radius={baseRadius}
+            fillColor="rgba(105, 105, 105, 0.15)"
+            strokeWidth={0}
+          />
+          
+          {/* Middle smoke layer */}
+          <Circle
+            center={{
+              latitude: fire.latitude,
+              longitude: fire.longitude,
+            }}
+            radius={baseRadius * 0.6}
+            fillColor="rgba(105, 105, 105, 0.25)"
+            strokeWidth={0}
+          />
+          
+          {/* Inner danger zone for large fires */}
+          {fire.size_hectares > 1000 && (
+            <Circle
+              center={{
+                latitude: fire.latitude,
+                longitude: fire.longitude,
+              }}
+              radius={baseRadius * 0.3}
+              fillColor="rgba(255, 69, 0, 0.2)"
+              strokeColor="rgba(255, 69, 0, 0.4)"
+              strokeWidth={1}
+              strokeDashArray={[10, 5]}
+              lineDashPhase={0}
+            />
+          )}
+        </React.Fragment>
+      );
+    });
+  };
+
+  /**
    * Render wildfire markers
    */
   const renderFireMarkers = () => {
     if (!data?.wildfires) return null;
     
-    return data.wildfires.map((fire) => (
-      <Marker
-        key={fire.fire_id}
-        coordinate={{
-          latitude: fire.latitude,
-          longitude: fire.longitude,
-        }}
-        onPress={() => onFirePress(fire)}
-        anchor={{ x: 0.5, y: 0.5 }}
-      >
-        <View style={[styles.fireMarker, { backgroundColor: fire.statusColor }]}>
-          <Icon name="fire" size={20} color="#FFF" />
-        </View>
-      </Marker>
-    ));
+    // Sort fires by size so smaller ones render on top
+    const sortedFires = [...data.wildfires].sort((a, b) => 
+      (b.size_hectares || 0) - (a.size_hectares || 0)
+    );
+    
+    return sortedFires.map((fire) => {
+      const markerSize = getFireMarkerSize(fire.size_hectares || 0);
+      const iconSize = getFireIconSize(fire.size_hectares || 0);
+      const isOutOfControl = fire.status === 'OC';
+      
+      return (
+        <Marker
+          key={fire.fire_id}
+          coordinate={{
+            latitude: fire.latitude,
+            longitude: fire.longitude,
+          }}
+          onPress={() => onFirePress(fire)}
+          anchor={{ x: 0.5, y: 0.5 }}
+        >
+          <View style={[
+            styles.fireMarker, 
+            { 
+              backgroundColor: fire.statusColor,
+              width: markerSize,
+              height: markerSize,
+              borderRadius: markerSize / 2,
+              borderWidth: isOutOfControl ? 2 : 1,
+              borderColor: isOutOfControl ? '#FFF' : 'rgba(255,255,255,0.5)',
+            }
+          ]}>
+            <Icon name="fire" size={iconSize} color="#FFF" />
+            {fire.size_hectares > 1000 && (
+              <Text style={styles.fireSize}>
+                {Math.round(fire.size_hectares / 1000)}k
+              </Text>
+            )}
+          </View>
+        </Marker>
+      );
+    });
   };
 
   /**
@@ -238,6 +349,7 @@ const MapScreen = () => {
         showsMyLocationButton={true}
         showsCompass={true}
       >
+        {renderSmokeOverlays()}
         {renderAirQualityOverlay()}
         {renderFireMarkers()}
         {renderCommunityMarkers()}
@@ -265,8 +377,17 @@ const MapScreen = () => {
         </TouchableOpacity>
       </View>
 
-      {/* Legend */}
-      <Legend />
+      {/* Fire Statistics Dashboard */}
+      <FireStatsDashboard 
+        wildfires={data?.wildfires || []}
+        isExpanded={showStats}
+        onToggle={() => setShowStats(!showStats)}
+      />
+
+      {/* Legend - moved down when stats are shown */}
+      <View style={{ top: showStats ? 280 : undefined }}>
+        <Legend />
+      </View>
 
       {/* Info Panel */}
       <InfoPanel 
@@ -342,6 +463,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 2,
     borderColor: '#FFF',
+  },
+  fireSize: {
+    position: 'absolute',
+    bottom: -2,
+    fontSize: 10,
+    fontWeight: 'bold',
+    color: '#FFF',
+    textShadowColor: 'rgba(0,0,0,0.5)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
   },
   communityMarker: {
     backgroundColor: '#FFF',
