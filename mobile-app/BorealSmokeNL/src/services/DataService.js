@@ -4,10 +4,13 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getAQHIColor, getAQHILabel, getRiskLevel } from '../utils/aqhiUtils';
 
 const API_BASE_URL = 'https://robertg761.github.io/boreal-smoke-nl';
 const CACHE_KEY = 'boreal_smoke_data';
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+const MAX_RETRY_ATTEMPTS = 3;
+const INITIAL_RETRY_DELAY = 1000; // 1 second
 
 class DataService {
   constructor() {
@@ -51,18 +54,8 @@ class DataService {
     this.isLoading = true;
 
     try {
-      // Fetch from API
-      const response = await fetch(`${API_BASE_URL}/data.json`, {
-        headers: {
-          'Cache-Control': 'no-cache',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
+      // Fetch from API with retry mechanism
+      const data = await this.fetchWithRetry(`${API_BASE_URL}/data.json`);
       
       // Process and enhance data
       const processedData = this.processData(data);
@@ -80,20 +73,65 @@ class DataService {
       return processedData;
       
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error('Error fetching data after retries:', error);
       
       // Try to return cached data
       const storedData = await this.getStoredData();
       if (storedData) {
         this.cache = storedData;
+        // Notify listeners that we're using cached data
+        this.notifyListeners({ ...storedData, isStale: true });
         return storedData;
       }
       
       // Return minimal fallback data
-      return this.getFallbackData();
+      const fallbackData = this.getFallbackData();
+      this.notifyListeners(fallbackData);
+      return fallbackData;
       
     } finally {
       this.isLoading = false;
+    }
+  }
+
+  /**
+   * Fetch with exponential backoff retry logic
+   */
+  async fetchWithRetry(url, attempt = 1) {
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+      
+      const response = await fetch(url, {
+        headers: {
+          'Cache-Control': 'no-cache',
+        },
+        signal: controller.signal,
+      });
+      
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      return await response.json();
+      
+    } catch (error) {
+      // Check if we should retry
+      if (attempt < MAX_RETRY_ATTEMPTS) {
+        const delay = INITIAL_RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
+        console.log(`Retry attempt ${attempt}/${MAX_RETRY_ATTEMPTS} after ${delay}ms...`);
+        
+        // Wait before retrying
+        await new Promise(resolve => setTimeout(resolve, delay));
+        
+        // Recursive retry
+        return this.fetchWithRetry(url, attempt + 1);
+      }
+      
+      // All retries failed
+      throw error;
     }
   }
 
@@ -128,9 +166,9 @@ class DataService {
   processPredictions(predictions) {
     return predictions.map(pred => ({
       ...pred,
-      aqhiColor: this.getAQHIColor(pred.aqhi_value),
-      aqhiLabel: this.getAQHILabel(pred.aqhi_value),
-      riskLevel: this.getRiskLevel(pred.aqhi_value),
+      aqhiColor: getAQHIColor(pred.aqhi_value),
+      aqhiLabel: getAQHILabel(pred.aqhi_value),
+      riskLevel: getRiskLevel(pred.aqhi_value),
     }));
   }
 
@@ -143,11 +181,17 @@ class DataService {
     predictions.forEach(pred => {
       const key = `${pred.latitude},${pred.longitude}`;
       if (!communities.has(key)) {
+        // Use location name from prediction if available, otherwise derive it
+        const name = pred.location || pred.community || 
+                    this.getCommunityName(pred.latitude, pred.longitude);
+        
         communities.set(key, {
           lat: pred.latitude,
           lon: pred.longitude,
-          name: this.getCommunityName(pred.latitude, pred.longitude),
+          name: name,
           currentAQHI: pred.aqhi_value,
+          // Store original prediction data for reference
+          predictionData: pred,
         });
       }
     });
@@ -178,53 +222,52 @@ class DataService {
     return 'Very Large';
   }
 
-  /**
-   * Get AQHI color
-   */
-  getAQHIColor(value) {
-    if (value <= 3) return '#00FF00';  // Green - Low Risk
-    if (value <= 6) return '#FFFF00';  // Yellow - Moderate Risk
-    if (value <= 10) return '#FFA500'; // Orange - High Risk
-    return '#FF0000';                  // Red - Very High Risk
-  }
+  // AQHI methods removed - now using centralized utils from aqhiUtils.js
 
   /**
-   * Get AQHI label
-   */
-  getAQHILabel(value) {
-    if (value <= 3) return 'Low Risk';
-    if (value <= 6) return 'Moderate Risk';
-    if (value <= 10) return 'High Risk';
-    return 'Very High Risk';
-  }
-
-  /**
-   * Get risk level
-   */
-  getRiskLevel(value) {
-    if (value <= 3) return 'low';
-    if (value <= 6) return 'moderate';
-    if (value <= 10) return 'high';
-    return 'very-high';
-  }
-
-  /**
-   * Get community name from coordinates
+   * Get community name from coordinates using nearest match
    */
   getCommunityName(lat, lon) {
-    const communities = {
-      '47.5615,-52.7126': "St. John's",
-      '47.5189,-52.8061': 'Mount Pearl',
-      '47.5297,-52.9547': 'Conception Bay South',
-      '47.5361,-52.8579': 'Paradise',
-      '47.3875,-53.1356': 'Holyrood',
-      '47.5989,-53.2644': 'Bay Roberts',
-      '47.7369,-53.2144': 'Carbonear',
-      '47.7050,-53.2144': 'Harbour Grace',
-    };
+    // Known community reference points (fallback data)
+    const knownCommunities = [
+      { lat: 47.5615, lon: -52.7126, name: "St. John's" },
+      { lat: 47.5189, lon: -52.8061, name: 'Mount Pearl' },
+      { lat: 47.5297, lon: -52.9547, name: 'Conception Bay South' },
+      { lat: 47.5361, lon: -52.8579, name: 'Paradise' },
+      { lat: 47.3875, lon: -53.1356, name: 'Holyrood' },
+      { lat: 47.5989, lon: -53.2644, name: 'Bay Roberts' },
+      { lat: 47.7369, lon: -53.2144, name: 'Carbonear' },
+      { lat: 47.7050, lon: -53.2144, name: 'Harbour Grace' },
+      { lat: 47.4816, lon: -52.7971, name: 'Torbay' },
+      { lat: 47.3161, lon: -52.9479, name: 'Petty Harbour' },
+      { lat: 48.9509, lon: -54.6159, name: 'Gander' },
+      { lat: 49.0919, lon: -55.6514, name: 'Grand Falls-Windsor' },
+      { lat: 48.3505, lon: -53.9823, name: 'Clarenville' },
+    ];
     
-    const key = `${lat.toFixed(4)},${lon.toFixed(4)}`;
-    return communities[key] || 'Unknown Location';
+    // Find nearest community within reasonable distance (0.05 degrees ~5.5km)
+    let nearestCommunity = null;
+    let minDistance = 0.05; // Maximum distance threshold
+    
+    for (const community of knownCommunities) {
+      const distance = Math.sqrt(
+        Math.pow(community.lat - lat, 2) + 
+        Math.pow(community.lon - lon, 2)
+      );
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestCommunity = community;
+      }
+    }
+    
+    // Return the nearest community name or a formatted coordinate string
+    if (nearestCommunity) {
+      return nearestCommunity.name;
+    }
+    
+    // If no known community is near, return formatted coordinates
+    return `Location (${lat.toFixed(3)}, ${lon.toFixed(3)})`;
   }
 
   /**

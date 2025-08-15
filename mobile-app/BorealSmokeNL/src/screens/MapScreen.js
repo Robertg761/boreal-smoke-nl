@@ -3,7 +3,7 @@
  * Displays wildfires, air quality overlay, and community information
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import {
   StyleSheet,
   View,
@@ -15,15 +15,16 @@ import {
   RefreshControl,
   Platform,
   Alert,
+  Animated,
 } from 'react-native';
 import MapView, { Marker, Circle, Overlay, PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DataService from '../services/DataService';
 import CommunitySelector from '../components/CommunitySelector';
-import FireDetailsModal from '../components/FireDetailsModal';
 import InfoPanel from '../components/InfoPanel';
 import Legend from '../components/Legend';
 import FireStatsDashboard from '../components/FireStatsDashboard';
+import { getAQHIColor } from '../utils/aqhiUtils';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -41,37 +42,71 @@ const MapScreen = () => {
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedInfo, setSelectedInfo] = useState(null);
-  const [selectedFire, setSelectedFire] = useState(null);
   const [currentHour, setCurrentHour] = useState(0);
   const [mapType, setMapType] = useState('standard');
   const [showStats, setShowStats] = useState(false);
+  const [showLegend, setShowLegend] = useState(false);
+  const [animationEnabled, setAnimationEnabled] = useState(false); // Disable animation by default for performance
   
   const mapRef = useRef(null);
+  const emergencyPulse = useRef(new Animated.Value(1)).current;
 
   // Load data on mount
   useEffect(() => {
+    let isMounted = true; // Flag to prevent state updates after unmount
+    let animationLoop = null;
+    
     loadData();
     
-    // Subscribe to data updates
+    // Only start animation if enabled (for performance)
+    if (animationEnabled) {
+      animationLoop = Animated.loop(
+        Animated.sequence([
+          Animated.timing(emergencyPulse, {
+            toValue: 1.3,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+          Animated.timing(emergencyPulse, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+          }),
+        ])
+      );
+      animationLoop.start();
+    }
+    
+    // Subscribe to data updates with mounted check
     const unsubscribe = DataService.subscribe((newData) => {
-      setData(newData);
+      if (isMounted) {
+        setData(newData);
+      }
     });
     
     // Set up auto-refresh every 30 minutes
     const refreshInterval = setInterval(() => {
-      loadData(false);
+      if (isMounted) {
+        loadData(false);
+      }
     }, 30 * 60 * 1000);
     
     return () => {
-      unsubscribe();
-      clearInterval(refreshInterval);
+      isMounted = false; // Prevent state updates
+      if (animationLoop) {
+        animationLoop.stop(); // Stop animation
+      }
+      if (unsubscribe) {
+        unsubscribe(); // Unsubscribe from data updates
+      }
+      clearInterval(refreshInterval); // Clear refresh interval
     };
-  }, []);
+  }, [animationEnabled]); // Add animationEnabled as dependency
 
   /**
    * Load data from service
    */
-  const loadData = async (showLoader = true) => {
+  const loadData = useCallback(async (showLoader = true) => {
     if (showLoader) setLoading(true);
     
     try {
@@ -98,29 +133,51 @@ const MapScreen = () => {
       setLoading(false);
       setRefreshing(false);
     }
-  };
+  }, []);
 
   /**
    * Handle refresh
    */
-  const onRefresh = () => {
+  const onRefresh = useCallback(() => {
     setRefreshing(true);
     loadData(false);
-  };
+  }, [loadData]);
 
   /**
    * Handle fire marker press
    */
-  const onFirePress = (fire) => {
+  const onFirePress = useCallback((fire) => {
     setSelectedInfo({ type: 'fire', ...fire });
-    setSelectedFire(fire); // Keep this for the modal for now
-  };
+  }, []);
 
   /**
-   * Handle community selection
+   * Handle community selection - memoized
    */
-  const onCommunitySelect = (community) => {
-    setSelectedInfo({ type: 'community', ...community });
+  const onCommunitySelect = useCallback((community) => {
+    const emergencyInfo = getEmergencyInfo(community);
+    
+    // Add emergency info to selected community data
+    const communityWithEmergency = {
+      type: 'community',
+      ...community,
+      emergency: emergencyInfo,
+    };
+    
+    setSelectedInfo(communityWithEmergency);
+    
+    // Show alert for evacuation zones
+    if (emergencyInfo?.level === 'EVACUATE') {
+      Alert.alert(
+        '⚠️ EVACUATION NOTICE',
+        `${community.name} - ${emergencyInfo.distance.toFixed(1)}km from active fire\n\n` +
+        emergencyInfo.zones.join('\n\n'),
+        [
+          { text: 'Emergency Info', onPress: () => {} },
+          { text: 'OK', style: 'cancel' }
+        ],
+        { cancelable: false }
+      );
+    }
     
     // Animate map to selected community
     if (mapRef.current && community) {
@@ -131,7 +188,7 @@ const MapScreen = () => {
         longitudeDelta: 0.5,
       }, 1000);
     }
-  };
+  }, [getEmergencyInfo, mapRef]);
 
   /**
    * Get current predictions for the selected hour
@@ -152,15 +209,15 @@ const MapScreen = () => {
   };
 
   /**
-   * Get marker size based on fire size
+   * Get marker size based on fire size - memoized
    */
-  const getFireMarkerSize = (hectares) => {
+  const getFireMarkerSize = useCallback((hectares) => {
     if (hectares < 10) return 24;
     if (hectares < 100) return 30;
     if (hectares < 1000) return 36;
     if (hectares < 5000) return 42;
     return 48; // Very large fires (like the 9,127 hectare one)
-  };
+  }, []);
 
   /**
    * Get icon size based on marker size
@@ -171,9 +228,9 @@ const MapScreen = () => {
   };
 
   /**
-   * Render smoke overlays for Out of Control fires
+   * Render smoke overlays for Out of Control fires - memoized
    */
-  const renderSmokeOverlays = () => {
+  const renderSmokeOverlays = useMemo(() => {
     if (!data?.wildfires) return null;
     
     // Only show smoke for Out of Control fires
@@ -232,12 +289,12 @@ const MapScreen = () => {
         </React.Fragment>
       );
     });
-  };
+  }, [data?.wildfires]);
 
   /**
-   * Render wildfire markers
+   * Render wildfire markers - memoized
    */
-  const renderFireMarkers = () => {
+  const renderFireMarkers = useMemo(() => {
     if (!data?.wildfires) return null;
     
     // Sort fires by size so smaller ones render on top
@@ -259,6 +316,7 @@ const MapScreen = () => {
           }}
           onPress={() => onFirePress(fire)}
           anchor={{ x: 0.5, y: 0.5 }}
+          tracksViewChanges={false}
         >
           <View style={[
             styles.fireMarker, 
@@ -281,7 +339,7 @@ const MapScreen = () => {
         </Marker>
       );
     });
-  };
+  }, [data?.wildfires, onFirePress, getFireMarkerSize]);
 
   /**
    * Render air quality overlay circles
@@ -305,26 +363,188 @@ const MapScreen = () => {
   };
 
   /**
-   * Render community markers
+   * Get AQHI color for community based on current air quality - memoized
    */
-  const renderCommunityMarkers = () => {
+  const getCommunityAQHIColor = useCallback((community) => {
+    // Find the latest prediction for this community
+    const predictions = getPredictionsForHour();
+    const communityPrediction = predictions.find(pred => 
+      Math.abs(pred.latitude - community.lat) < 0.01 && 
+      Math.abs(pred.longitude - community.lon) < 0.01
+    );
+    
+    const aqhi = communityPrediction?.aqhi_value || community.currentAQHI || 1;
+    
+    // Use centralized AQHI color function
+    return getAQHIColor(aqhi);
+  }, [currentHour]);
+
+  /**
+   * Check if community is in emergency state and get evacuation details - memoized
+   */
+  const getEmergencyInfo = useCallback((community) => {
+    if (!data?.wildfires) return null;
+    
+    const ocFires = data.wildfires.filter(fire => fire.status === 'OC');
+    let closestFire = null;
+    let minDistance = Infinity;
+    
+    for (const fire of ocFires) {
+      const distance = Math.sqrt(
+        Math.pow(fire.latitude - community.lat, 2) + 
+        Math.pow(fire.longitude - community.lon, 2)
+      ) * 111; // Rough conversion to km
+      
+      if (distance < minDistance) {
+        minDistance = distance;
+        closestFire = fire;
+      }
+    }
+    
+    if (minDistance < 10) {
+      return {
+        level: 'EVACUATE',
+        distance: minDistance,
+        fire: closestFire,
+        zones: getEvacuationZones(community, minDistance),
+      };
+    } else if (minDistance < 20) {
+      return {
+        level: 'ALERT',
+        distance: minDistance,
+        fire: closestFire,
+        zones: [],
+      };
+    }
+    
+    return null;
+  }, [data?.wildfires]);
+  
+  /**
+   * Get specific evacuation zones based on distance
+   */
+  const getEvacuationZones = (community, distance) => {
+    const zones = [];
+    
+    if (distance < 5) {
+      zones.push('All residents - Immediate evacuation');
+      zones.push('Emergency shelters open at nearest safe community');
+    } else if (distance < 10) {
+      zones.push('Eastern districts - Evacuate immediately');
+      zones.push('Western districts - Prepare for evacuation');
+      zones.push('Elderly and vulnerable residents - Priority evacuation');
+    }
+    
+    return zones;
+  };
+
+  /**
+   * Render community markers - memoized
+   */
+  const renderCommunityMarkers = useMemo(() => {
     if (!data?.communities) return null;
     
-    return data.communities.map((community) => (
-      <Marker
-        key={`community-${community.name}`}
-        coordinate={{
-          latitude: community.lat,
-          longitude: community.lon,
-        }}
-        onPress={() => onCommunitySelect(community)}
-      >
-        <View style={styles.communityMarker}>
-          <Icon name="home-city" size={16} color="#333" />
-        </View>
-      </Marker>
-    ));
-  };
+    return data.communities.map((community) => {
+      const aqhiColor = getCommunityAQHIColor(community);
+      const emergencyInfo = getEmergencyInfo(community);
+      const isEvacuation = emergencyInfo?.level === 'EVACUATE';
+      const isAlert = emergencyInfo?.level === 'ALERT';
+      
+      return (
+        <Marker
+          key={`community-${community.name}`}
+          coordinate={{
+            latitude: community.lat,
+            longitude: community.lon,
+          }}
+          onPress={() => onCommunitySelect(community)}
+          anchor={{ x: 0.5, y: 0.5 }}
+          tracksViewChanges={false}
+        >
+          {isEvacuation ? (
+            animationEnabled ? (
+              <Animated.View style={{
+                padding: 8,
+                borderRadius: 16,
+                backgroundColor: '#FF0000',
+                borderColor: '#FFF',
+                borderWidth: 2,
+                transform: [{ scale: emergencyPulse }],
+                elevation: 5,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.3,
+                shadowRadius: 3,
+              }}>
+                <Icon 
+                  name="alert-octagon" 
+                  size={20} 
+                  color="#FFF" 
+                />
+              </Animated.View>
+            ) : (
+              <View style={{
+                padding: 8,
+                borderRadius: 16,
+                backgroundColor: '#FF0000',
+                borderColor: '#FFF',
+                borderWidth: 2,
+                elevation: 5,
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.3,
+                shadowRadius: 3,
+              }}>
+                <Icon 
+                  name="alert-octagon" 
+                  size={20} 
+                  color="#FFF" 
+                />
+              </View>
+            )
+          ) : isAlert ? (
+            <View style={{
+              padding: 8,
+              borderRadius: 14,
+              backgroundColor: '#FF9800',
+              borderColor: '#FFF',
+              borderWidth: 2,
+              elevation: 4,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.25,
+              shadowRadius: 2,
+            }}>
+              <Icon 
+                name="alert" 
+                size={18} 
+                color="#FFF" 
+              />
+            </View>
+          ) : (
+            <View style={{
+              padding: 6,
+              borderRadius: 12,
+              backgroundColor: aqhiColor,
+              borderColor: '#FFF',
+              borderWidth: 1,
+              elevation: 3,
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 1 },
+              shadowOpacity: 0.2,
+              shadowRadius: 1,
+            }}>
+              <Icon 
+                name="home-city" 
+                size={16} 
+                color="#FFF" 
+              />
+            </View>
+          )}
+        </Marker>
+      );
+    });
+  }, [data?.communities, getCommunityAQHIColor, getEmergencyInfo, onCommunitySelect, animationEnabled, emergencyPulse]);
 
   // Show loading screen
   if (loading) {
@@ -349,10 +569,11 @@ const MapScreen = () => {
         showsMyLocationButton={true}
         showsCompass={true}
       >
-        {renderSmokeOverlays()}
-        {renderAirQualityOverlay()}
-        {renderFireMarkers()}
-        {renderCommunityMarkers()}
+        {renderSmokeOverlays}
+        {/* Air quality overlay disabled - colors shown on community markers instead */}
+        {/* {renderAirQualityOverlay()} */}
+        {renderFireMarkers}
+        {renderCommunityMarkers}
       </MapView>
 
       {/* Top Controls */}
@@ -384,10 +605,20 @@ const MapScreen = () => {
         onToggle={() => setShowStats(!showStats)}
       />
 
-      {/* Legend - moved down when stats are shown */}
-      <View style={{ top: showStats ? 280 : undefined }}>
-        <Legend />
-      </View>
+      {/* Legend Toggle Button */}
+      <TouchableOpacity
+        style={styles.legendToggle}
+        onPress={() => setShowLegend(!showLegend)}
+      >
+        <Icon name="information" size={24} color="#333" />
+      </TouchableOpacity>
+      
+      {/* Legend - shown when toggled */}
+      {showLegend && (
+        <View style={styles.legendContainer}>
+          <Legend />
+        </View>
+      )}
 
       {/* Info Panel */}
       <InfoPanel 
@@ -406,14 +637,7 @@ const MapScreen = () => {
         <Icon name="refresh" size={24} color="#333" />
       </TouchableOpacity>
 
-      {/* Fire Details Modal (can be removed if InfoPanel is sufficient) */}
-      {selectedFire && (
-        <FireDetailsModal
-          visible={selectedInfo?.type === 'fire' && selectedFire?.fire_id === selectedInfo?.fire_id}
-          fire={selectedFire}
-          onClose={() => setSelectedInfo(null)}
-        />
-      )}
+      {/* Fire Details Modal removed - using InfoPanel only */}
     </View>
   );
 };
@@ -475,14 +699,39 @@ const styles = StyleSheet.create({
     textShadowRadius: 1,
   },
   communityMarker: {
-    backgroundColor: '#FFF',
-    padding: 4,
-    borderRadius: 4,
-    elevation: 2,
+    padding: 6,
+    borderRadius: 12,
+    elevation: 3,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,
+  },
+  legendToggle: {
+    position: 'absolute',
+    left: 10,
+    bottom: 100,
+    backgroundColor: '#FFF',
+    padding: 10,
+    borderRadius: 25,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
-    shadowRadius: 1,
+    shadowRadius: 2,
+  },
+  legendContainer: {
+    position: 'absolute',
+    left: 10,
+    bottom: 150,
+    backgroundColor: '#FFF',
+    borderRadius: 8,
+    padding: 10,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   refreshButton: {
     position: 'absolute',

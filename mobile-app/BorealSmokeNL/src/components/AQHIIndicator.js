@@ -14,6 +14,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 
 const AQHIIndicator = ({ value, communityName }) => {
+  // Handle null/undefined values
+  const displayValue = value !== null && value !== undefined ? value : 'N/A';
+  const numericValue = typeof displayValue === 'number' ? displayValue : 0;
+  
   const getAQHIInfo = (val) => {
     if (val <= 3) {
       return {
@@ -50,7 +54,7 @@ const AQHIIndicator = ({ value, communityName }) => {
     }
   };
 
-  const info = getAQHIInfo(value);
+  const info = getAQHIInfo(numericValue);
 
   return (
     <LinearGradient
@@ -65,7 +69,7 @@ const AQHIIndicator = ({ value, communityName }) => {
       </View>
       
       <View style={styles.valueContainer}>
-        <Text style={styles.value}>{value}</Text>
+        <Text style={styles.value}>{displayValue}</Text>
         <Text style={styles.label}>{info.label}</Text>
       </View>
       
@@ -78,7 +82,7 @@ const AQHIIndicator = ({ value, communityName }) => {
               key={i}
               style={[
                 styles.scaleSegment,
-                { opacity: i <= value ? 1 : 0.3 }
+                { opacity: i <= numericValue ? 1 : 0.3 }
               ]}
             />
           ))}
