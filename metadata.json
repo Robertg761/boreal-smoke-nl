@@ -1,17 +1,17 @@
 {
-  "last_updated": "2025-08-15T00:36:56.872705",
-  "next_update": "2025-08-15T00:30:00.872705",
+  "last_updated": "2025-08-15T16:45:53.525427",
+  "next_update": "2025-08-15T16:30:00.525427",
   "files": {
-    "main": "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\data.json",
+    "main": "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\data.json",
     "communities": [
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-st-johns.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-mount-pearl.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-conception-bay-south.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-paradise.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-holyrood.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-bay-roberts.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-carbonear.json",
-      "G:\\Projects\\NL Wildfire & Air Quality Tracker\\temp_data\\community-harbour-grace.json"
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-st-johns.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-mount-pearl.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-conception-bay-south.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-paradise.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-holyrood.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-bay-roberts.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-carbonear.json",
+      "G:\\Projects\\NL-Wildfire-Air-Quality-Tracker\\temp_data\\community-harbour-grace.json"
     ]
   },
   "version": "1.0.0",
