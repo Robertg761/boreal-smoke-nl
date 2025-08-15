@@ -24,7 +24,6 @@ import CommunitySelector from '../components/CommunitySelector';
 import InfoPanel from '../components/InfoPanel';
 import Legend from '../components/Legend';
 import FireStatsDashboard from '../components/FireStatsDashboard';
-import { getAQHIColor } from '../utils/aqhiUtils';
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -341,43 +340,7 @@ const MapScreen = () => {
     });
   }, [data?.wildfires, onFirePress, getFireMarkerSize]);
 
-  /**
-   * Render air quality overlay circles
-   */
-  const renderAirQualityOverlay = () => {
-    const predictions = getPredictionsForHour();
-    if (!predictions || predictions.length === 0) return null;
-    
-    return predictions.map((pred, index) => (
-      <Circle
-        key={`aqhi-${index}`}
-        center={{
-          latitude: pred.latitude,
-          longitude: pred.longitude,
-        }}
-        radius={pred.radius || 5000} // Use radius from data or fallback
-        fillColor={pred.color ? `${pred.color}60` : '#00FF0060'} // 60% opacity
-        strokeWidth={0}
-      />
-    ));
-  };
 
-  /**
-   * Get AQHI color for community based on current air quality - memoized
-   */
-  const getCommunityAQHIColor = useCallback((community) => {
-    // Find the latest prediction for this community
-    const predictions = getPredictionsForHour();
-    const communityPrediction = predictions.find(pred => 
-      Math.abs(pred.latitude - community.lat) < 0.01 && 
-      Math.abs(pred.longitude - community.lon) < 0.01
-    );
-    
-    const aqhi = communityPrediction?.aqhi_value || community.currentAQHI || 1;
-    
-    // Use centralized AQHI color function
-    return getAQHIColor(aqhi);
-  }, [currentHour]);
 
   /**
    * Check if community is in emergency state and get evacuation details - memoized
@@ -445,7 +408,6 @@ const MapScreen = () => {
     if (!data?.communities) return null;
     
     return data.communities.map((community) => {
-      const aqhiColor = getCommunityAQHIColor(community);
       const emergencyInfo = getEmergencyInfo(community);
       const isEvacuation = emergencyInfo?.level === 'EVACUATE';
       const isAlert = emergencyInfo?.level === 'ALERT';
@@ -525,7 +487,7 @@ const MapScreen = () => {
             <View style={{
               padding: 6,
               borderRadius: 12,
-              backgroundColor: aqhiColor,
+              backgroundColor: '#667eea',
               borderColor: '#FFF',
               borderWidth: 1,
               elevation: 3,
@@ -544,7 +506,7 @@ const MapScreen = () => {
         </Marker>
       );
     });
-  }, [data?.communities, getCommunityAQHIColor, getEmergencyInfo, onCommunitySelect, animationEnabled, emergencyPulse]);
+  }, [data?.communities, getEmergencyInfo, onCommunitySelect, animationEnabled, emergencyPulse]);
 
   // Show loading screen
   if (loading) {
@@ -624,9 +586,6 @@ const MapScreen = () => {
       <InfoPanel 
         data={selectedInfo}
         onClose={() => setSelectedInfo(null)}
-        timelineHours={12}
-        currentTimelineHour={currentHour}
-        onTimelineChange={setCurrentHour}
       />
 
       {/* Refresh Button */}

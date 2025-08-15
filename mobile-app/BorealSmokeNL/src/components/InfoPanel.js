@@ -1,11 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AQHIIndicator from './AQHIIndicator';
-import TimelineSlider from './TimelineSlider';
 import { getFireLocation, getLocationDescription } from '../utils/locationUtils';
 
-const InfoPanel = ({ data, onClose, timelineHours, currentTimelineHour, onTimelineChange }) => {
+const InfoPanel = ({ data, onClose }) => {
   if (!data) return null;
 
   const isFire = data.type === 'fire';
@@ -72,26 +70,10 @@ const InfoPanel = ({ data, onClose, timelineHours, currentTimelineHour, onTimeli
             <Text style={styles.subtitle}>{location.secondary}</Text>
           </View>
         </View>
-        {data.emergency && (
-          <View style={[styles.alertBox, { 
-            backgroundColor: data.emergency.level === 'EVACUATE' ? '#FFE5E5' : '#FFF3E0' 
-          }]}>
-            <Icon 
-              name={data.emergency.level === 'EVACUATE' ? 'alert-octagon' : 'alert'} 
-              size={20} 
-              color={data.emergency.level === 'EVACUATE' ? '#FF0000' : '#FF9800'} 
-            />
-            <Text style={styles.alertText}>
-              {data.emergency.level === 'EVACUATE' ? 'EVACUATION ZONE' : 'ALERT ZONE'} - 
-              {data.emergency.distance.toFixed(1)}km from active fire
-            </Text>
-          </View>
-        )}
-        <AQHIIndicator 
-          value={data.currentAQHI || data.aqhi} 
-          communityName={data.name}
-          pm25={data.pm25 || data.predictionData?.pm25_concentration}
-        />
+        <View style={styles.detailRow}>
+          <Text style={styles.detailLabel}>Region:</Text>
+          <Text style={styles.detailValue}>{location.secondary || 'Newfoundland and Labrador'}</Text>
+        </View>
         <View style={styles.detailRow}>
           <Text style={styles.detailLabel}>GPS:</Text>
           <Text style={styles.detailCoords}>{location.coordinates}</Text>
@@ -108,14 +90,6 @@ const InfoPanel = ({ data, onClose, timelineHours, currentTimelineHour, onTimeli
       
       {isFire && renderFireDetails()}
       {isCommunity && renderCommunityDetails()}
-
-      <View style={styles.timelineContainer}>
-        <TimelineSlider 
-          hours={timelineHours}
-          currentHour={currentTimelineHour}
-          onChange={onTimelineChange}
-        />
-      </View>
     </View>
   );
 };
@@ -213,6 +187,26 @@ const styles = StyleSheet.create({
   missingData: {
     color: '#999',
     fontStyle: 'italic',
+  },
+  noDataBox: {
+    backgroundColor: '#F5F5F5',
+    borderRadius: 12,
+    padding: 15,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  noDataTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#333',
+    marginTop: 8,
+    marginBottom: 8,
+  },
+  noDataText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    lineHeight: 20,
   },
 });
 

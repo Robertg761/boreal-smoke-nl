@@ -16,6 +16,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from functions.data_ingestion.wildfire_fetcher import WildfireFetcher
 from functions.data_ingestion.weather_fetcher import WeatherFetcher
+from functions.data_ingestion.aqhi_fetcher import AQHIFetcher
 from functions.data_ingestion.static_generator import StaticDataGenerator
 from models.fire_models import AQHIPrediction
 from loguru import logger
@@ -30,12 +31,26 @@ class DataUpdater:
         
         logger.add("data_update.log", rotation="10 MB")
         
-    def generate_mock_predictions(self, wildfires, weather_forecasts) -> list:
+    def generate_predictions_with_real_aqhi(self, wildfires, weather_forecasts) -> list:
         """
-        Generate mock AQHI predictions
-        In production, this would use the Gaussian plume model
+        Generate AQHI predictions using real Environment Canada data
+        Combined with fire proximity impacts
         """
         predictions = []
+        
+        # Fetch real AQHI data from Environment Canada
+        aqhi_fetcher = AQHIFetcher()
+        real_aqhi_data = aqhi_fetcher.fetch_all_aqhi()
+        
+        # Get St. John's AQHI as baseline
+        stjohns_aqhi = 2  # Default
+        for data in real_aqhi_data:
+            if data['city'] == "St. John's":
+                stjohns_aqhi = data['aqhi_value']
+                logger.info(f"Real St. John's AQHI: {stjohns_aqhi}")
+                if data.get('special_note'):
+                    logger.info(f"Special note: {data['special_note']}")
+                break
         
         # Communities to generate predictions for
         communities = {
@@ -56,59 +71,53 @@ class DataUpdater:
             for hour in range(12):
                 forecast_time = current_time + timedelta(hours=hour)
                 
-                # Simple mock calculation based on distance to fires
-                # Base values for clean air
-                aqhi_value = 1  # Base value (good air quality)
-                pm25 = 8.0  # Base PM2.5 in µg/m³ (normal background)
-                source_fires = []
+                # Start with base AQHI from Environment Canada data
+                if community_name == 'St. Johns':
+                    # Use real AQHI for St. John's
+                    aqhi_value = stjohns_aqhi
+                else:
+                    # For other communities, start with St. John's value
+                    # and adjust based on fire proximity
+                    aqhi_value = stjohns_aqhi
                 
+                # Calculate PM2.5 based on AQHI (inverse of our previous calculation)
+                # This ensures PM2.5 values match the AQHI
+                if aqhi_value <= 3:
+                    pm25 = 5 + (aqhi_value - 1) * 3.5  # 5-12 µg/m³
+                elif aqhi_value <= 6:
+                    pm25 = 12 + (aqhi_value - 3) * 7.7  # 12-35 µg/m³
+                elif aqhi_value <= 8:
+                    pm25 = 35 + (aqhi_value - 6) * 10  # 35-55 µg/m³
+                elif aqhi_value <= 10:
+                    pm25 = 55 + (aqhi_value - 8) * 47.5  # 55-150 µg/m³
+                else:
+                    pm25 = 150 + (aqhi_value - 10) * 50  # 150+ µg/m³
+                
+                source_fires = []
+                fire_impact_added = 0
+                
+                # Check for nearby fires and adjust if needed
                 for fire in wildfires:
                     # Calculate distance in degrees (roughly 111km per degree)
                     distance_km = ((fire.latitude - lat)**2 + 
                                   (fire.longitude - lon)**2)**0.5 * 111
                     
-                    # If fire is within ~200km and out of control
-                    if distance_km < 200 and fire.status.value == "OC":
-                        # Calculate impact based on distance and fire size
-                        # Closer fires have more impact
-                        distance_factor = max(0, (200 - distance_km) / 200)  # 0 to 1
-                        
-                        # Larger fires have more impact
-                        size_factor = min(1, fire.size_hectares / 1000)  # Cap at 1 for 1000+ hectares
-                        
-                        # Combined impact
-                        impact = distance_factor * size_factor
-                        
-                        # Add to PM2.5 realistically
-                        # Maximum addition of 50 µg/m³ per fire for very close, large fires
-                        pm25 += impact * 50
-                        
-                        # AQHI increases more gradually
-                        aqhi_value += impact * 4
-                        
+                    # Only adjust for very close, out of control fires
+                    if distance_km < 100 and fire.status.value == "OC":
                         source_fires.append(fire.fire_id)
+                        
+                        # Add small impact based on distance and size
+                        if distance_km < 30 and fire.size_hectares > 100:
+                            fire_impact_added = max(fire_impact_added, 2)  # Very close, large fire
+                        elif distance_km < 50:
+                            fire_impact_added = max(fire_impact_added, 1)  # Close fire
                 
-                # Calculate AQHI from PM2.5 using Canadian standards
-                # PM2.5 to AQHI approximation:
-                # 0-12 µg/m³ = AQHI 1-3
-                # 12-35 µg/m³ = AQHI 4-6
-                # 35-55 µg/m³ = AQHI 7-8
-                # 55-150 µg/m³ = AQHI 9-10
-                # 150+ µg/m³ = AQHI 10+
-                if pm25 <= 12:
-                    calculated_aqhi = 1 + (pm25 / 12) * 2
-                elif pm25 <= 35:
-                    calculated_aqhi = 4 + ((pm25 - 12) / 23) * 2
-                elif pm25 <= 55:
-                    calculated_aqhi = 7 + ((pm25 - 35) / 20)
-                elif pm25 <= 150:
-                    calculated_aqhi = 9 + ((pm25 - 55) / 95)
-                else:
-                    # Don't cap at 10 for extreme conditions
-                    calculated_aqhi = 10 + ((pm25 - 150) / 50)
+                # Add fire impact to AQHI (but keep it reasonable)
+                aqhi_value = min(10, aqhi_value + fire_impact_added)
                 
-                # Use the calculated AQHI
-                aqhi_value = round(max(1, calculated_aqhi))
+                # Adjust PM2.5 if fire impact was added
+                if fire_impact_added > 0:
+                    pm25 += fire_impact_added * 15
                 
                 prediction = AQHIPrediction(
                     timestamp=forecast_time,
@@ -141,9 +150,9 @@ class DataUpdater:
             weather_forecasts = weather_fetcher.fetch_bulk_weather(fire_locations, hours_ahead=12)
             logger.info(f"Fetched weather for {len(weather_forecasts)} locations")
             
-            # Step 3: Generate predictions (mock for now)
-            logger.info("Generating AQHI predictions...")
-            predictions = self.generate_mock_predictions(wildfires, weather_forecasts)
+            # Step 3: Generate predictions with real AQHI data
+            logger.info("Generating AQHI predictions with real Environment Canada data...")
+            predictions = self.generate_predictions_with_real_aqhi(wildfires, weather_forecasts)
             logger.info(f"Generated {len(predictions)} predictions")
             
             # Step 4: Generate static files

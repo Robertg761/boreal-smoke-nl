@@ -5,11 +5,11 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const Legend = () => {
   const [expanded, setExpanded] = useState(true);
 
-  const aqhiLevels = [
-    { level: '1-3', risk: 'Low', color: '#00FF00' },
-    { level: '4-6', risk: 'Moderate', color: '#FFFF00' },
-    { level: '7-10', risk: 'High', color: '#FFA500' },
-    { level: '10+', risk: 'Very High', color: '#FF0000' },
+  const fireStatuses = [
+    { status: 'OC', label: 'Out of Control', color: '#FF0000' },
+    { status: 'BH', label: 'Being Held', color: '#FF9800' },
+    { status: 'UC', label: 'Under Control', color: '#4CAF50' },
+    { status: 'OUT', label: 'Extinguished', color: '#9E9E9E' },
   ];
 
   return (
@@ -18,17 +18,19 @@ const Legend = () => {
         style={styles.header}
         onPress={() => setExpanded(!expanded)}
       >
-        <Text style={styles.title}>AQHI Legend</Text>
+        <Text style={styles.title}>Fire Status Legend</Text>
         <Icon name={expanded ? "chevron-down" : "chevron-up"} size={20} color="#333" />
       </TouchableOpacity>
       
       {expanded && (
         <View style={styles.legendItems}>
-          {aqhiLevels.map((item) => (
-            <View key={item.risk} style={styles.legendItem}>
-              <View style={[styles.colorBox, { backgroundColor: item.color }]} />
-              <Text style={styles.levelText}>{item.level}</Text>
-              <Text style={styles.riskText}>{item.risk}</Text>
+          {fireStatuses.map((item) => (
+            <View key={item.status} style={styles.legendItem}>
+              <View style={styles.iconWrapper}>
+                <Icon name="fire" size={16} color={item.color} />
+              </View>
+              <Text style={styles.statusCode}>{item.status}</Text>
+              <Text style={styles.statusLabel}>{item.label}</Text>
             </View>
           ))}
         </View>
@@ -69,20 +71,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 3,
   },
-  colorBox: {
-    width: 18,
-    height: 18,
-    borderRadius: 4,
+  iconWrapper: {
+    width: 24,
+    height: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#CCC',
   },
-  levelText: {
+  statusCode: {
     fontSize: 12,
+    fontWeight: 'bold',
     color: '#333',
     width: 35,
   },
-  riskText: {
+  statusLabel: {
     fontSize: 12,
     color: '#555',
   },

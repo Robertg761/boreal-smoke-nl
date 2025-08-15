@@ -4,7 +4,6 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getAQHIColor, getAQHILabel, getRiskLevel } from '../utils/aqhiUtils';
 
 const API_BASE_URL = 'https://robertg761.github.io/boreal-smoke-nl';
 const CACHE_KEY = 'boreal_smoke_data';
@@ -143,8 +142,7 @@ class DataService {
       ...data,
       processedAt: new Date().toISOString(),
       wildfires: this.processWildfires(data.wildfires || []),
-      predictions: this.processPredictions(data.predictions || []),
-      communities: this.extractCommunities(data.predictions || []),
+      communities: this.getDefaultCommunities(),
     };
   }
 
@@ -161,43 +159,24 @@ class DataService {
   }
 
   /**
-   * Process prediction data
+   * Get default communities list
    */
-  processPredictions(predictions) {
-    return predictions.map(pred => ({
-      ...pred,
-      aqhiColor: getAQHIColor(pred.aqhi_value),
-      aqhiLabel: getAQHILabel(pred.aqhi_value),
-      riskLevel: getRiskLevel(pred.aqhi_value),
-    }));
-  }
-
-  /**
-   * Extract unique communities from predictions
-   */
-  extractCommunities(predictions) {
-    const communities = new Map();
-    
-    predictions.forEach(pred => {
-      const key = `${pred.latitude},${pred.longitude}`;
-      if (!communities.has(key)) {
-        // Use location name from prediction if available, otherwise derive it
-        const name = pred.location || pred.community || 
-                    this.getCommunityName(pred.latitude, pred.longitude);
-        
-        communities.set(key, {
-          lat: pred.latitude,
-          lon: pred.longitude,
-          name: name,
-          currentAQHI: pred.aqhi_value,
-          pm25: pred.pm25_concentration,
-          // Store original prediction data for reference
-          predictionData: pred,
-        });
-      }
-    });
-    
-    return Array.from(communities.values());
+  getDefaultCommunities() {
+    return [
+      { lat: 47.5615, lon: -52.7126, name: "St. John's" },
+      { lat: 47.5189, lon: -52.8061, name: "Mount Pearl" },
+      { lat: 47.5297, lon: -52.9547, name: "Conception Bay South" },
+      { lat: 47.5361, lon: -52.8579, name: "Paradise" },
+      { lat: 47.3875, lon: -53.1356, name: "Holyrood" },
+      { lat: 47.5989, lon: -53.2644, name: "Bay Roberts" },
+      { lat: 47.7369, lon: -53.2144, name: "Carbonear" },
+      { lat: 47.7050, lon: -53.2144, name: "Harbour Grace" },
+      { lat: 47.4816, lon: -52.7971, name: "Torbay" },
+      { lat: 47.3161, lon: -52.9479, name: "Petty Harbour" },
+      { lat: 48.9509, lon: -54.6159, name: "Gander" },
+      { lat: 49.0919, lon: -55.6514, name: "Grand Falls-Windsor" },
+      { lat: 48.3505, lon: -53.9823, name: "Clarenville" },
+    ];
   }
 
   /**
@@ -221,54 +200,6 @@ class DataService {
     if (hectares < 100) return 'Medium';
     if (hectares < 1000) return 'Large';
     return 'Very Large';
-  }
-
-  // AQHI methods removed - now using centralized utils from aqhiUtils.js
-
-  /**
-   * Get community name from coordinates using nearest match
-   */
-  getCommunityName(lat, lon) {
-    // Known community reference points (fallback data)
-    const knownCommunities = [
-      { lat: 47.5615, lon: -52.7126, name: "St. John's" },
-      { lat: 47.5189, lon: -52.8061, name: 'Mount Pearl' },
-      { lat: 47.5297, lon: -52.9547, name: 'Conception Bay South' },
-      { lat: 47.5361, lon: -52.8579, name: 'Paradise' },
-      { lat: 47.3875, lon: -53.1356, name: 'Holyrood' },
-      { lat: 47.5989, lon: -53.2644, name: 'Bay Roberts' },
-      { lat: 47.7369, lon: -53.2144, name: 'Carbonear' },
-      { lat: 47.7050, lon: -53.2144, name: 'Harbour Grace' },
-      { lat: 47.4816, lon: -52.7971, name: 'Torbay' },
-      { lat: 47.3161, lon: -52.9479, name: 'Petty Harbour' },
-      { lat: 48.9509, lon: -54.6159, name: 'Gander' },
-      { lat: 49.0919, lon: -55.6514, name: 'Grand Falls-Windsor' },
-      { lat: 48.3505, lon: -53.9823, name: 'Clarenville' },
-    ];
-    
-    // Find nearest community within reasonable distance (0.05 degrees ~5.5km)
-    let nearestCommunity = null;
-    let minDistance = 0.05; // Maximum distance threshold
-    
-    for (const community of knownCommunities) {
-      const distance = Math.sqrt(
-        Math.pow(community.lat - lat, 2) + 
-        Math.pow(community.lon - lon, 2)
-      );
-      
-      if (distance < minDistance) {
-        minDistance = distance;
-        nearestCommunity = community;
-      }
-    }
-    
-    // Return the nearest community name or a formatted coordinate string
-    if (nearestCommunity) {
-      return nearestCommunity.name;
-    }
-    
-    // If no known community is near, return formatted coordinates
-    return `Location (${lat.toFixed(3)}, ${lon.toFixed(3)})`;
   }
 
   /**
@@ -319,18 +250,7 @@ class DataService {
   getFallbackData() {
     return {
       wildfires: [],
-      predictions: [],
-      weather: [],
-      communities: [
-        { lat: 47.5615, lon: -52.7126, name: "St. John's", currentAQHI: 1 },
-        { lat: 47.5189, lon: -52.8061, name: "Mount Pearl", currentAQHI: 1 },
-        { lat: 47.5297, lon: -52.9547, name: "Conception Bay South", currentAQHI: 1 },
-        { lat: 47.5361, lon: -52.8579, name: "Paradise", currentAQHI: 1 },
-        { lat: 47.3875, lon: -53.1356, name: "Holyrood", currentAQHI: 1 },
-        { lat: 47.5989, lon: -53.2644, name: "Bay Roberts", currentAQHI: 1 },
-        { lat: 47.7369, lon: -53.2144, name: "Carbonear", currentAQHI: 1 },
-        { lat: 47.7050, lon: -53.2144, name: "Harbour Grace", currentAQHI: 1 },
-      ],
+      communities: this.getDefaultCommunities(),
       error: 'Unable to fetch data. Please check your connection.',
       isOffline: true,
     };

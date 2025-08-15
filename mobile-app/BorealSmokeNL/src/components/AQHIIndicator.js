@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import { calculateAQHIFromPM25 } from '../utils/aqhiUtils';
 
-const AQHIIndicator = ({ value, communityName, pm25 = null }) => {
+const AQHIIndicator = ({ value, communityName, pm25 = null, isOfficial = false }) => {
   // Use the AQHI value directly from backend (now properly calculated)
   const actualValue = value;
   
@@ -79,7 +79,15 @@ const AQHIIndicator = ({ value, communityName, pm25 = null }) => {
     >
       <View style={styles.header}>
         <Icon name={info.icon} size={24} color="#FFF" />
-        <Text style={styles.communityName}>{communityName}</Text>
+        <View style={styles.headerText}>
+          <Text style={styles.communityName}>{communityName}</Text>
+          {isOfficial && (
+            <View style={styles.officialBadge}>
+              <Icon name="check-circle" size={14} color="#FFF" />
+              <Text style={styles.officialText}>Official Data</Text>
+            </View>
+          )}
+        </View>
       </View>
       
       <View style={styles.valueContainer}>
@@ -228,6 +236,21 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     flex: 1,
     textAlign: 'center',
+  },
+  headerText: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  officialBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 2,
+  },
+  officialText: {
+    fontSize: 11,
+    color: '#FFF',
+    opacity: 0.9,
+    marginLeft: 4,
   },
 });
 

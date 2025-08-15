@@ -1,6 +1,6 @@
 {
-  "name": "BorealSmokeNL",
-  "version": "0.0.1",
+  "name": "NLWildfireTracker",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
