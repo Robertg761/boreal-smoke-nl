@@ -135,10 +135,18 @@ const MapScreen = () => {
    * Get current predictions for the selected hour
    */
   const getPredictionsForHour = () => {
-    if (!data?.predictions || !data.predictions[currentHour]) {
+    if (!data?.predictions) {
       return [];
     }
-    return data.predictions[currentHour];
+    // If predictions is already an array, return it
+    if (Array.isArray(data.predictions)) {
+      return data.predictions;
+    }
+    // If predictions is grouped by hour, return the current hour's predictions
+    if (data.predictions[currentHour]) {
+      return data.predictions[currentHour];
+    }
+    return [];
   };
 
   /**

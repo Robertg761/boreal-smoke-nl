@@ -277,7 +277,16 @@ class DataService {
       wildfires: [],
       predictions: [],
       weather: [],
-      communities: [],
+      communities: [
+        { lat: 47.5615, lon: -52.7126, name: "St. John's", currentAQHI: 1 },
+        { lat: 47.5189, lon: -52.8061, name: "Mount Pearl", currentAQHI: 1 },
+        { lat: 47.5297, lon: -52.9547, name: "Conception Bay South", currentAQHI: 1 },
+        { lat: 47.5361, lon: -52.8579, name: "Paradise", currentAQHI: 1 },
+        { lat: 47.3875, lon: -53.1356, name: "Holyrood", currentAQHI: 1 },
+        { lat: 47.5989, lon: -53.2644, name: "Bay Roberts", currentAQHI: 1 },
+        { lat: 47.7369, lon: -53.2144, name: "Carbonear", currentAQHI: 1 },
+        { lat: 47.7050, lon: -53.2144, name: "Harbour Grace", currentAQHI: 1 },
+      ],
       error: 'Unable to fetch data. Please check your connection.',
       isOffline: true,
     };
