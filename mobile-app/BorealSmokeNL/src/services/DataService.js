@@ -190,6 +190,7 @@ class DataService {
           lon: pred.longitude,
           name: name,
           currentAQHI: pred.aqhi_value,
+          pm25: pred.pm25_concentration,
           // Store original prediction data for reference
           predictionData: pred,
         });

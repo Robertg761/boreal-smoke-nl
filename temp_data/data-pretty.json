@@ -1,5 +1,5 @@
 {
-  "timestamp": "2025-08-15T16:51:42.356573",
+  "timestamp": "2025-08-15T18:30:14.047766",
   "wildfires": [
     {
       "fire_id": "212",
@@ -8,7 +8,7 @@
       "size_hectares": 13.1,
       "status": "OC",
       "start_date": "2025-08-11T17:00:00",
-      "last_updated": "2025-08-15T16:51:41.096603",
+      "last_updated": "2025-08-15T18:30:12.647998",
       "agency": "qc",
       "fire_name": null,
       "cause": null
@@ -20,7 +20,7 @@
       "size_hectares": 1820.0,
       "status": "UC",
       "start_date": "2025-07-14T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.096603",
+      "last_updated": "2025-08-15T18:30:12.647998",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -32,7 +32,7 @@
       "size_hectares": 340.0,
       "status": "OC",
       "start_date": "2025-08-08T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.097604",
+      "last_updated": "2025-08-15T18:30:12.648999",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -44,7 +44,7 @@
       "size_hectares": 1589.0,
       "status": "UC",
       "start_date": "2025-07-19T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.097604",
+      "last_updated": "2025-08-15T18:30:12.648999",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -56,7 +56,7 @@
       "size_hectares": 22.0,
       "status": "UC",
       "start_date": "2025-08-04T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.097604",
+      "last_updated": "2025-08-15T18:30:12.648999",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -68,7 +68,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-13T19:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "qc",
       "fire_name": null,
       "cause": null
@@ -80,7 +80,7 @@
       "size_hectares": 12.0,
       "status": "OC",
       "start_date": "2025-08-12T02:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "qc",
       "fire_name": null,
       "cause": null
@@ -92,7 +92,7 @@
       "size_hectares": 0.0,
       "status": "UC",
       "start_date": "2025-08-13T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -104,19 +104,7 @@
       "size_hectares": 25.0,
       "status": "OC",
       "start_date": "2025-08-13T19:03:29",
-      "last_updated": "2025-08-15T16:51:41.098603",
-      "agency": "nb",
-      "fire_name": null,
-      "cause": null
-    },
-    {
-      "fire_id": "68562",
-      "latitude": 47.0565,
-      "longitude": -65.7455,
-      "size_hectares": 5.5,
-      "status": "BH",
-      "start_date": "2025-08-14T07:28:37",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -128,7 +116,19 @@
       "size_hectares": 0.7,
       "status": "BH",
       "start_date": "2025-08-13T18:38:15",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68562",
+      "latitude": 47.0565,
+      "longitude": -65.7455,
+      "size_hectares": 5.5,
+      "status": "BH",
+      "start_date": "2025-08-14T07:28:37",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -140,7 +140,7 @@
       "size_hectares": 0.1,
       "status": "OC",
       "start_date": "2025-08-14T12:12:40",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -152,7 +152,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-14T12:25:28",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -164,7 +164,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-14T11:28:43",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -176,7 +176,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-14T14:42:15",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -188,7 +188,7 @@
       "size_hectares": 0.2,
       "status": "BH",
       "start_date": "2025-08-13T20:35:46",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -200,7 +200,7 @@
       "size_hectares": 1.1,
       "status": "BH",
       "start_date": "2025-08-13T22:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.649997",
       "agency": "qc",
       "fire_name": null,
       "cause": null
@@ -212,7 +212,7 @@
       "size_hectares": 0.2,
       "status": "OC",
       "start_date": "2025-08-14T17:51:23",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -224,7 +224,7 @@
       "size_hectares": 306.0,
       "status": "OC",
       "start_date": "2025-08-11T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -236,7 +236,7 @@
       "size_hectares": 0.0,
       "status": "UC",
       "start_date": "2025-08-13T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -248,7 +248,7 @@
       "size_hectares": 2160.0,
       "status": "OC",
       "start_date": "2025-08-05T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -260,7 +260,7 @@
       "size_hectares": 0.1,
       "status": "UC",
       "start_date": "2025-08-13T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -272,7 +272,7 @@
       "size_hectares": 2.7,
       "status": "BH",
       "start_date": "2025-08-14T18:43:09",
-      "last_updated": "2025-08-15T16:51:41.098603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -284,7 +284,7 @@
       "size_hectares": 1402.0,
       "status": "OC",
       "start_date": "2025-08-06T15:54:31",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -296,19 +296,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-12T17:20:52",
-      "last_updated": "2025-08-15T16:51:41.099603",
-      "agency": "nb",
-      "fire_name": null,
-      "cause": null
-    },
-    {
-      "fire_id": "68588",
-      "latitude": 47.1989,
-      "longitude": -66.8594,
-      "size_hectares": 2.0,
-      "status": "UC",
-      "start_date": "2025-08-14T12:51:08",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -320,19 +308,19 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-14T18:47:06",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
     },
     {
-      "fire_id": "68584",
-      "latitude": 47.1731,
-      "longitude": -65.8212,
-      "size_hectares": 0.1,
-      "status": "BH",
-      "start_date": "2025-08-14T11:50:16",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "fire_id": "68588",
+      "latitude": 47.1989,
+      "longitude": -66.8594,
+      "size_hectares": 2.0,
+      "status": "UC",
+      "start_date": "2025-08-14T12:51:08",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -344,43 +332,7 @@
       "size_hectares": 0.1,
       "status": "BH",
       "start_date": "2025-08-14T16:35:47",
-      "last_updated": "2025-08-15T16:51:41.099603",
-      "agency": "nb",
-      "fire_name": null,
-      "cause": null
-    },
-    {
-      "fire_id": "68622",
-      "latitude": 47.4851,
-      "longitude": -65.5618,
-      "size_hectares": 0.1,
-      "status": "OC",
-      "start_date": "2025-08-15T09:42:26",
-      "last_updated": "2025-08-15T16:51:41.099603",
-      "agency": "nb",
-      "fire_name": null,
-      "cause": null
-    },
-    {
-      "fire_id": "68583",
-      "latitude": 47.1867,
-      "longitude": -65.7893,
-      "size_hectares": 0.2,
-      "status": "OC",
-      "start_date": "2025-08-14T11:31:48",
-      "last_updated": "2025-08-15T16:51:41.099603",
-      "agency": "nb",
-      "fire_name": null,
-      "cause": null
-    },
-    {
-      "fire_id": "68603",
-      "latitude": 47.2433,
-      "longitude": -65.7323,
-      "size_hectares": 0.2,
-      "status": "UC",
-      "start_date": "2025-08-14T15:01:16",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -392,7 +344,7 @@
       "size_hectares": 0.5,
       "status": "OC",
       "start_date": "2025-08-14T12:08:41",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
       "fire_name": null,
       "cause": null
@@ -404,8 +356,80 @@
       "size_hectares": 0.1,
       "status": "OC",
       "start_date": "2025-08-15T11:56:41",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68584",
+      "latitude": 47.1731,
+      "longitude": -65.8212,
+      "size_hectares": 0.1,
+      "status": "BH",
+      "start_date": "2025-08-14T11:50:16",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68622",
+      "latitude": 47.4851,
+      "longitude": -65.5618,
+      "size_hectares": 0.1,
+      "status": "OC",
+      "start_date": "2025-08-15T09:42:26",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68603",
+      "latitude": 47.2433,
+      "longitude": -65.7323,
+      "size_hectares": 0.2,
+      "status": "UC",
+      "start_date": "2025-08-14T15:01:16",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68583",
+      "latitude": 47.1867,
+      "longitude": -65.7893,
+      "size_hectares": 0.2,
+      "status": "BH",
+      "start_date": "2025-08-14T11:31:48",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "68662",
+      "latitude": 47.2113,
+      "longitude": -65.3363,
+      "size_hectares": 0.1,
+      "status": "OC",
+      "start_date": "2025-08-15T17:00:47",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "nb",
+      "fire_name": null,
+      "cause": null
+    },
+    {
+      "fire_id": "241",
+      "latitude": 48.1392,
+      "longitude": -66.1492,
+      "size_hectares": 0.0,
+      "status": "BH",
+      "start_date": "2025-08-13T19:00:00",
+      "last_updated": "2025-08-15T18:30:12.651000",
+      "agency": "qc",
       "fire_name": null,
       "cause": null
     },
@@ -416,7 +440,7 @@
       "size_hectares": 9127.0,
       "status": "OC",
       "start_date": "2025-08-03T00:00:00",
-      "last_updated": "2025-08-15T16:51:41.099603",
+      "last_updated": "2025-08-15T18:30:12.651000",
       "agency": "nl",
       "fire_name": null,
       "cause": null
@@ -426,706 +450,706 @@
     {
       "location_lat": 50.2172,
       "location_lon": -60.2672,
-      "forecast_time": "2025-08-15T16:51:41.917379",
+      "forecast_time": "2025-08-15T18:30:13.530452",
       "forecasts": [
         {
-          "timestamp": "2025-08-15T17:51:41.917379",
+          "timestamp": "2025-08-15T19:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 14.042457281523333,
-          "wind_direction_degrees": 247.01227489791574,
-          "temperature_celsius": 21.77041356693843,
-          "relative_humidity": 40.42463142073406,
-          "pressure_kpa": 101.84259398332887,
-          "precipitation_mm": 0.8660549601532996
+          "wind_speed_kmh": 25.102195434344036,
+          "wind_direction_degrees": 240.13522966027554,
+          "temperature_celsius": 20.582124559732673,
+          "relative_humidity": 42.96958740478439,
+          "pressure_kpa": 101.16286647432742,
+          "precipitation_mm": 0.9002174885071925
         },
         {
-          "timestamp": "2025-08-15T18:51:41.917379",
+          "timestamp": "2025-08-15T20:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 16.550065676901973,
-          "wind_direction_degrees": 305.25164269677254,
-          "temperature_celsius": 24.20374744169352,
-          "relative_humidity": 48.41651690070092,
-          "pressure_kpa": 101.11843398232062,
-          "precipitation_mm": 0.18895427158159084
+          "wind_speed_kmh": 13.663306276656437,
+          "wind_direction_degrees": 264.30971192198837,
+          "temperature_celsius": 14.814022419100546,
+          "relative_humidity": 67.83284037980647,
+          "pressure_kpa": 101.85562299076807,
+          "precipitation_mm": 1.3800141104931551
         },
         {
-          "timestamp": "2025-08-15T19:51:41.917379",
+          "timestamp": "2025-08-15T21:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 17.179244657790395,
-          "wind_direction_degrees": 293.02118855598195,
-          "temperature_celsius": 20.398170219360217,
-          "relative_humidity": 59.93697794756866,
-          "pressure_kpa": 101.29531423745244,
+          "wind_speed_kmh": 12.097709557568365,
+          "wind_direction_degrees": 245.63353650091108,
+          "temperature_celsius": 17.40262024869126,
+          "relative_humidity": 73.33162517194425,
+          "pressure_kpa": 101.05831847792346,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T20:51:41.917379",
+          "timestamp": "2025-08-15T22:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 9.50636507053638,
-          "wind_direction_degrees": 272.51472005170535,
-          "temperature_celsius": 19.93872171804437,
-          "relative_humidity": 50.003137661075,
-          "pressure_kpa": 101.07750761197683,
-          "precipitation_mm": 0.8829155949824017
+          "wind_speed_kmh": 27.072706927270698,
+          "wind_direction_degrees": 235.90276864014285,
+          "temperature_celsius": 16.104665197085936,
+          "relative_humidity": 73.54179434864548,
+          "pressure_kpa": 101.47062330807543,
+          "precipitation_mm": 1.4470487881838214
         },
         {
-          "timestamp": "2025-08-15T21:51:41.917379",
+          "timestamp": "2025-08-15T23:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 18.289691791655905,
-          "wind_direction_degrees": 241.0279820372835,
-          "temperature_celsius": 14.990892377541911,
-          "relative_humidity": 68.137598699535,
-          "pressure_kpa": 102.23848513873392,
-          "precipitation_mm": 0.397249018054991
+          "wind_speed_kmh": 11.523022877928334,
+          "wind_direction_degrees": 257.93247771958585,
+          "temperature_celsius": 15.28947317689845,
+          "relative_humidity": 44.08777187311827,
+          "pressure_kpa": 102.17257252703304,
+          "precipitation_mm": 1.9440099699176212
         },
         {
-          "timestamp": "2025-08-15T22:51:41.917379",
+          "timestamp": "2025-08-16T00:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 8.316143039664407,
-          "wind_direction_degrees": 254.0149394313101,
-          "temperature_celsius": 18.39363309770333,
-          "relative_humidity": 64.79062593661467,
-          "pressure_kpa": 101.5053612245774,
-          "precipitation_mm": 1.3774973757408722
+          "wind_speed_kmh": 16.35167468061542,
+          "wind_direction_degrees": 291.23234383344385,
+          "temperature_celsius": 12.863740996236606,
+          "relative_humidity": 72.72513957093156,
+          "pressure_kpa": 100.92541224500638,
+          "precipitation_mm": 0.33278743422537627
         },
         {
-          "timestamp": "2025-08-15T23:51:41.917379",
+          "timestamp": "2025-08-16T01:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 19.68069604558023,
-          "wind_direction_degrees": 305.4028494888683,
-          "temperature_celsius": 15.804300195630505,
-          "relative_humidity": 67.22216251854145,
-          "pressure_kpa": 100.4594391926986,
-          "precipitation_mm": 1.043108564775292
+          "wind_speed_kmh": 16.340964730723066,
+          "wind_direction_degrees": 221.29557359142353,
+          "temperature_celsius": 13.982905509997938,
+          "relative_humidity": 64.41124892468837,
+          "pressure_kpa": 101.29196832005718,
+          "precipitation_mm": 1.5773421952074806
         },
         {
-          "timestamp": "2025-08-16T00:51:41.917379",
+          "timestamp": "2025-08-16T02:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 22.754688983649007,
-          "wind_direction_degrees": 226.5213345305209,
-          "temperature_celsius": 14.2788435043663,
-          "relative_humidity": 77.2376876966122,
-          "pressure_kpa": 101.86196283586588,
+          "wind_speed_kmh": 29.346266465958614,
+          "wind_direction_degrees": 196.020566382574,
+          "temperature_celsius": 20.164343386491197,
+          "relative_humidity": 68.86880960528697,
+          "pressure_kpa": 101.89170952171254,
+          "precipitation_mm": 0.6358967382878036
+        },
+        {
+          "timestamp": "2025-08-16T03:30:13.530452",
+          "latitude": 50.2172,
+          "longitude": -60.2672,
+          "wind_speed_kmh": 20.07176605532292,
+          "wind_direction_degrees": 341.7678077259083,
+          "temperature_celsius": 17.558488999037838,
+          "relative_humidity": 67.30810897359756,
+          "pressure_kpa": 100.49502720776093,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-16T01:51:41.917379",
+          "timestamp": "2025-08-16T04:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 10.57340933129632,
-          "wind_direction_degrees": 226.69319930649286,
-          "temperature_celsius": 13.589468001188004,
-          "relative_humidity": 40.09504240407867,
-          "pressure_kpa": 102.21168572095907,
-          "precipitation_mm": 1.5834295380894337
+          "wind_speed_kmh": 26.159231716364516,
+          "wind_direction_degrees": 336.62534693113724,
+          "temperature_celsius": 20.622510535133717,
+          "relative_humidity": 41.94767513763372,
+          "pressure_kpa": 100.40188077054376,
+          "precipitation_mm": 1.863047891412842
         },
         {
-          "timestamp": "2025-08-16T02:51:41.917379",
+          "timestamp": "2025-08-16T05:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 25.216627836278604,
-          "wind_direction_degrees": 243.88697244337396,
-          "temperature_celsius": 13.142315160806438,
-          "relative_humidity": 40.772646312251894,
-          "pressure_kpa": 101.64821341595498,
-          "precipitation_mm": 0.5803799858073977
+          "wind_speed_kmh": 3.88878279400293,
+          "wind_direction_degrees": 309.40090514448303,
+          "temperature_celsius": 13.961552533266856,
+          "relative_humidity": 43.53803984212068,
+          "pressure_kpa": 101.17732035025605,
+          "precipitation_mm": 1.7815191116885423
         },
         {
-          "timestamp": "2025-08-16T03:51:41.917379",
+          "timestamp": "2025-08-16T06:30:13.530452",
           "latitude": 50.2172,
           "longitude": -60.2672,
-          "wind_speed_kmh": 20.755374506496047,
-          "wind_direction_degrees": 252.18021440605582,
-          "temperature_celsius": 17.32974839620108,
-          "relative_humidity": 54.84251229653084,
-          "pressure_kpa": 101.66366728765034,
-          "precipitation_mm": 0.4477283318508476
-        },
-        {
-          "timestamp": "2025-08-16T04:51:41.917379",
-          "latitude": 50.2172,
-          "longitude": -60.2672,
-          "wind_speed_kmh": 26.43486518452005,
-          "wind_direction_degrees": 305.6284930777778,
-          "temperature_celsius": 16.144349599526088,
-          "relative_humidity": 50.03857234245807,
-          "pressure_kpa": 101.71496556153348,
-          "precipitation_mm": 0.2595075498096313
+          "wind_speed_kmh": 21.31782682259381,
+          "wind_direction_degrees": 323.56118405877936,
+          "temperature_celsius": 25.180203705357442,
+          "relative_humidity": 71.13483198619628,
+          "pressure_kpa": 101.20366678340994,
+          "precipitation_mm": 1.4836404139752535
         }
       ]
     },
     {
       "location_lat": 48.492,
       "location_lon": -53.7421,
-      "forecast_time": "2025-08-15T16:51:42.036008",
+      "forecast_time": "2025-08-15T18:30:13.684552",
       "forecasts": [
         {
-          "timestamp": "2025-08-15T17:51:42.034502",
+          "timestamp": "2025-08-15T19:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 19.874286930325436,
-          "wind_direction_degrees": 312.2396522703959,
-          "temperature_celsius": 25.696445032133823,
-          "relative_humidity": 58.570600194795986,
-          "pressure_kpa": 101.31813387650267,
+          "wind_speed_kmh": 18.34056432401731,
+          "wind_direction_degrees": 282.3176583530449,
+          "temperature_celsius": 16.664122300320113,
+          "relative_humidity": 63.69719642981386,
+          "pressure_kpa": 101.69203702813496,
+          "precipitation_mm": 0.8973692442071408
+        },
+        {
+          "timestamp": "2025-08-15T20:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 13.50982034870914,
+          "wind_direction_degrees": 297.53082492161104,
+          "temperature_celsius": 18.13569525043832,
+          "relative_humidity": 79.12672110353114,
+          "pressure_kpa": 100.66327487813781,
+          "precipitation_mm": 0.16996194273497345
+        },
+        {
+          "timestamp": "2025-08-15T21:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 24.631337104563173,
+          "wind_direction_degrees": 279.8020250406431,
+          "temperature_celsius": 18.230345294327616,
+          "relative_humidity": 41.18087370790842,
+          "pressure_kpa": 101.51271479597315,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T18:51:42.034502",
+          "timestamp": "2025-08-15T22:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 17.910703860109926,
-          "wind_direction_degrees": 255.1657496017644,
-          "temperature_celsius": 21.13559506550367,
-          "relative_humidity": 48.57848103708439,
-          "pressure_kpa": 102.24130988813685,
-          "precipitation_mm": 0.03914447402357568
-        },
-        {
-          "timestamp": "2025-08-15T19:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 25.308471763119385,
-          "wind_direction_degrees": 285.1503271051174,
-          "temperature_celsius": 21.4007056698448,
-          "relative_humidity": 40.74203103881912,
-          "pressure_kpa": 100.47762261552577,
-          "precipitation_mm": 1.3227331729146443
-        },
-        {
-          "timestamp": "2025-08-15T20:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 26.378457452064858,
-          "wind_direction_degrees": 282.7825446778784,
-          "temperature_celsius": 16.887548255688937,
-          "relative_humidity": 76.41561963389705,
-          "pressure_kpa": 102.00510905002338,
+          "wind_speed_kmh": 22.47840002994608,
+          "wind_direction_degrees": 239.4672249035552,
+          "temperature_celsius": 19.07517726659922,
+          "relative_humidity": 74.12952606599178,
+          "pressure_kpa": 100.95958075434159,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T21:51:42.034502",
+          "timestamp": "2025-08-15T23:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 8.40531109139359,
-          "wind_direction_degrees": 247.83783203545295,
-          "temperature_celsius": 19.474496968579963,
-          "relative_humidity": 48.765053541812584,
-          "pressure_kpa": 101.13916782600616,
-          "precipitation_mm": 0.5556537218827542
+          "wind_speed_kmh": 13.8473600644908,
+          "wind_direction_degrees": 323.6526308917964,
+          "temperature_celsius": 18.441329654540972,
+          "relative_humidity": 79.57896674192153,
+          "pressure_kpa": 101.37442464501915,
+          "precipitation_mm": 0.3676398359524242
         },
         {
-          "timestamp": "2025-08-15T22:51:42.034502",
+          "timestamp": "2025-08-16T00:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 21.641834677882365,
-          "wind_direction_degrees": 301.23041922855185,
-          "temperature_celsius": 15.167306051714364,
-          "relative_humidity": 70.28931428706963,
-          "pressure_kpa": 102.23573010370355,
+          "wind_speed_kmh": 5.915853985296682,
+          "wind_direction_degrees": 231.65311506553158,
+          "temperature_celsius": 15.15567083680481,
+          "relative_humidity": 53.031958036816064,
+          "pressure_kpa": 101.8635282880505,
+          "precipitation_mm": 0.16184846562784094
+        },
+        {
+          "timestamp": "2025-08-16T01:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 27.222504235734874,
+          "wind_direction_degrees": 262.85301883391264,
+          "temperature_celsius": 18.659214262009492,
+          "relative_humidity": 63.58846099249852,
+          "pressure_kpa": 100.64046853283747,
+          "precipitation_mm": 1.1111245624066832
+        },
+        {
+          "timestamp": "2025-08-16T02:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 18.914592268465114,
+          "wind_direction_degrees": 314.6635029179962,
+          "temperature_celsius": 20.193069840320902,
+          "relative_humidity": 74.91686548320563,
+          "pressure_kpa": 100.68934466975237,
+          "precipitation_mm": 1.1751415102214104
+        },
+        {
+          "timestamp": "2025-08-16T03:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 20.16598059572718,
+          "wind_direction_degrees": 240.9644066067359,
+          "temperature_celsius": 18.27296399747773,
+          "relative_humidity": 56.14757850172162,
+          "pressure_kpa": 101.98209670858864,
+          "precipitation_mm": 0.15762059799976624
+        },
+        {
+          "timestamp": "2025-08-16T04:30:13.684552",
+          "latitude": 48.492,
+          "longitude": -53.7421,
+          "wind_speed_kmh": 23.231020667055937,
+          "wind_direction_degrees": 352.0207976939256,
+          "temperature_celsius": 18.96677952959003,
+          "relative_humidity": 71.84275389947727,
+          "pressure_kpa": 101.4675929539721,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T23:51:42.034502",
+          "timestamp": "2025-08-16T05:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 14.775690232281866,
-          "wind_direction_degrees": 335.47145055973493,
-          "temperature_celsius": 19.266595831853426,
-          "relative_humidity": 67.99738050506875,
-          "pressure_kpa": 101.10389247322101,
-          "precipitation_mm": 1.5816830385067764
+          "wind_speed_kmh": 12.214966916694715,
+          "wind_direction_degrees": 315.3463888217961,
+          "temperature_celsius": 14.601976663310094,
+          "relative_humidity": 60.2831371537644,
+          "pressure_kpa": 101.40301877638794,
+          "precipitation_mm": 0.9296571045836695
         },
         {
-          "timestamp": "2025-08-16T00:51:42.034502",
+          "timestamp": "2025-08-16T06:30:13.684552",
           "latitude": 48.492,
           "longitude": -53.7421,
-          "wind_speed_kmh": 23.746463281363596,
-          "wind_direction_degrees": 352.6935400515778,
-          "temperature_celsius": 17.066627944047458,
-          "relative_humidity": 52.21314156279087,
-          "pressure_kpa": 101.5455723227183,
-          "precipitation_mm": 0.8740671638729063
-        },
-        {
-          "timestamp": "2025-08-16T01:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 18.902346306234776,
-          "wind_direction_degrees": 331.4901030497564,
-          "temperature_celsius": 20.93603535060639,
-          "relative_humidity": 74.37918933841128,
-          "pressure_kpa": 101.44666375984573,
-          "precipitation_mm": 1.3602797494495917
-        },
-        {
-          "timestamp": "2025-08-16T02:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 26.48442424615605,
-          "wind_direction_degrees": 225.40953312394163,
-          "temperature_celsius": 21.625502950601124,
-          "relative_humidity": 62.37018093511857,
-          "pressure_kpa": 101.42461739599851,
-          "precipitation_mm": 0.3163690591180637
-        },
-        {
-          "timestamp": "2025-08-16T03:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 29.90172978666637,
-          "wind_direction_degrees": 215.70983617854102,
-          "temperature_celsius": 16.49574336125247,
-          "relative_humidity": 46.823028385353865,
-          "pressure_kpa": 100.69263865053618,
-          "precipitation_mm": 0
-        },
-        {
-          "timestamp": "2025-08-16T04:51:42.034502",
-          "latitude": 48.492,
-          "longitude": -53.7421,
-          "wind_speed_kmh": 19.35481641800367,
-          "wind_direction_degrees": 348.7538792651882,
-          "temperature_celsius": 15.81330649913682,
-          "relative_humidity": 49.80151664410984,
-          "pressure_kpa": 101.66777813487016,
-          "precipitation_mm": 1.5841829314156808
+          "wind_speed_kmh": 8.710048644237546,
+          "wind_direction_degrees": 234.12444546938872,
+          "temperature_celsius": 24.562022140035605,
+          "relative_humidity": 68.7068652409745,
+          "pressure_kpa": 101.47540390269587,
+          "precipitation_mm": 1.5114148290434937
         }
       ]
     },
     {
       "location_lat": 55.1544,
       "location_lon": -60.443,
-      "forecast_time": "2025-08-15T16:51:42.137057",
+      "forecast_time": "2025-08-15T18:30:13.810820",
       "forecasts": [
         {
-          "timestamp": "2025-08-15T17:51:42.137057",
+          "timestamp": "2025-08-15T19:30:13.810820",
           "latitude": 55.1544,
           "longitude": -60.443,
-          "wind_speed_kmh": 19.713708104600357,
-          "wind_direction_degrees": 264.60130575617904,
-          "temperature_celsius": 26.021886321536847,
-          "relative_humidity": 53.78452056954873,
-          "pressure_kpa": 101.55763973262704,
+          "wind_speed_kmh": 13.706583615629906,
+          "wind_direction_degrees": 310.5515795818888,
+          "temperature_celsius": 21.25131556120491,
+          "relative_humidity": 54.67137586866536,
+          "pressure_kpa": 100.86567074774257,
+          "precipitation_mm": 0.3241713335060774
+        },
+        {
+          "timestamp": "2025-08-15T20:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 22.60100901838021,
+          "wind_direction_degrees": 228.60276475704902,
+          "temperature_celsius": 13.432932184683652,
+          "relative_humidity": 52.71067353031382,
+          "pressure_kpa": 101.70734888933862,
+          "precipitation_mm": 1.501441348441178
+        },
+        {
+          "timestamp": "2025-08-15T21:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 8.767766320294822,
+          "wind_direction_degrees": 301.20843479335616,
+          "temperature_celsius": 14.74552253395047,
+          "relative_humidity": 41.06319529234425,
+          "pressure_kpa": 100.59592214191416,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T18:51:42.137057",
+          "timestamp": "2025-08-15T22:30:13.810820",
           "latitude": 55.1544,
           "longitude": -60.443,
-          "wind_speed_kmh": 25.720010156336325,
-          "wind_direction_degrees": 254.56747983408684,
-          "temperature_celsius": 20.12213470101742,
-          "relative_humidity": 51.001158555601165,
-          "pressure_kpa": 100.46251421321604,
-          "precipitation_mm": 1.6097656088170895
+          "wind_speed_kmh": 19.603935747836402,
+          "wind_direction_degrees": 283.35194884333043,
+          "temperature_celsius": 18.214621671104297,
+          "relative_humidity": 74.14783556613246,
+          "pressure_kpa": 100.39895623875265,
+          "precipitation_mm": 0.32479699874223433
         },
         {
-          "timestamp": "2025-08-15T19:51:42.137057",
+          "timestamp": "2025-08-15T23:30:13.810820",
           "latitude": 55.1544,
           "longitude": -60.443,
-          "wind_speed_kmh": 19.356905674205947,
-          "wind_direction_degrees": 290.73002786386,
-          "temperature_celsius": 16.785990412405855,
-          "relative_humidity": 41.53062676166534,
-          "pressure_kpa": 102.29469761301524,
-          "precipitation_mm": 1.351401488671679
+          "wind_speed_kmh": 16.75193343237506,
+          "wind_direction_degrees": 272.9612746974545,
+          "temperature_celsius": 20.29362138678204,
+          "relative_humidity": 60.40243485025171,
+          "pressure_kpa": 102.06051511560278,
+          "precipitation_mm": 0.43680743390959775
         },
         {
-          "timestamp": "2025-08-15T20:51:42.137057",
+          "timestamp": "2025-08-16T00:30:13.810820",
           "latitude": 55.1544,
           "longitude": -60.443,
-          "wind_speed_kmh": 7.466433424131188,
-          "wind_direction_degrees": 266.4795184501607,
-          "temperature_celsius": 18.644860720355616,
-          "relative_humidity": 44.015345042480604,
-          "pressure_kpa": 101.71799612542594,
-          "precipitation_mm": 0.4183595282949599
-        },
-        {
-          "timestamp": "2025-08-15T21:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 11.599014072109231,
-          "wind_direction_degrees": 309.59637770691705,
-          "temperature_celsius": 18.89917892738426,
-          "relative_humidity": 54.337249909577565,
-          "pressure_kpa": 100.56124409298992,
-          "precipitation_mm": 0.7420858035546947
-        },
-        {
-          "timestamp": "2025-08-15T22:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 21.800658635444005,
-          "wind_direction_degrees": 247.95439343981704,
-          "temperature_celsius": 14.214607818237754,
-          "relative_humidity": 72.29557358807133,
-          "pressure_kpa": 100.57790106336968,
-          "precipitation_mm": 1.4868463225803397
-        },
-        {
-          "timestamp": "2025-08-15T23:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 18.475691291293618,
-          "wind_direction_degrees": 266.70955792358023,
-          "temperature_celsius": 17.48905918136667,
-          "relative_humidity": 56.424203629960985,
-          "pressure_kpa": 100.48822426641763,
-          "precipitation_mm": 1.2030763996323584
-        },
-        {
-          "timestamp": "2025-08-16T00:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 22.4062453616021,
-          "wind_direction_degrees": 316.15973880780194,
-          "temperature_celsius": 20.1538810756039,
-          "relative_humidity": 48.846261958980456,
-          "pressure_kpa": 101.36446215076847,
-          "precipitation_mm": 0.9349212591945433
-        },
-        {
-          "timestamp": "2025-08-16T01:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 19.5524512618345,
-          "wind_direction_degrees": 239.8697684797778,
-          "temperature_celsius": 14.92457859347186,
-          "relative_humidity": 61.851553780665654,
-          "pressure_kpa": 101.30709025371569,
-          "precipitation_mm": 1.5486424596834358
-        },
-        {
-          "timestamp": "2025-08-16T02:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 11.344174257897691,
-          "wind_direction_degrees": 301.6003257690608,
-          "temperature_celsius": 21.37581988500184,
-          "relative_humidity": 69.69556390247818,
-          "pressure_kpa": 100.31616795655799,
-          "precipitation_mm": 1.965891352768761
-        },
-        {
-          "timestamp": "2025-08-16T03:51:42.137057",
-          "latitude": 55.1544,
-          "longitude": -60.443,
-          "wind_speed_kmh": 23.36758433205259,
-          "wind_direction_degrees": 238.39649505995257,
-          "temperature_celsius": 13.629022834879724,
-          "relative_humidity": 56.17302178926322,
-          "pressure_kpa": 100.37262628435224,
+          "wind_speed_kmh": 8.338855664507244,
+          "wind_direction_degrees": 287.9952531803523,
+          "temperature_celsius": 16.877221865515196,
+          "relative_humidity": 67.6574473496521,
+          "pressure_kpa": 101.6648623806341,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-16T04:51:42.137057",
+          "timestamp": "2025-08-16T01:30:13.810820",
           "latitude": 55.1544,
           "longitude": -60.443,
-          "wind_speed_kmh": 14.08587445027651,
-          "wind_direction_degrees": 312.75279659340185,
-          "temperature_celsius": 18.27086607428175,
-          "relative_humidity": 45.48540344225306,
-          "pressure_kpa": 101.78715715406585,
-          "precipitation_mm": 1.2741324525836089
+          "wind_speed_kmh": 17.731602589632107,
+          "wind_direction_degrees": 281.6947982576411,
+          "temperature_celsius": 20.59544473100656,
+          "relative_humidity": 41.88148107687667,
+          "pressure_kpa": 101.65420203117648,
+          "precipitation_mm": 0.601194853230947
+        },
+        {
+          "timestamp": "2025-08-16T02:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 21.733591311007164,
+          "wind_direction_degrees": 265.4787106960624,
+          "temperature_celsius": 18.709628580370147,
+          "relative_humidity": 76.19445976525449,
+          "pressure_kpa": 100.70066707816426,
+          "precipitation_mm": 0
+        },
+        {
+          "timestamp": "2025-08-16T03:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 21.31051236080077,
+          "wind_direction_degrees": 277.5031536112258,
+          "temperature_celsius": 19.162816943302513,
+          "relative_humidity": 77.14196548309619,
+          "pressure_kpa": 101.12598437427516,
+          "precipitation_mm": 0
+        },
+        {
+          "timestamp": "2025-08-16T04:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 26.234326828389676,
+          "wind_direction_degrees": 282.0486481383132,
+          "temperature_celsius": 15.103498098363758,
+          "relative_humidity": 78.39808322011348,
+          "pressure_kpa": 101.48712485293886,
+          "precipitation_mm": 0
+        },
+        {
+          "timestamp": "2025-08-16T05:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 5.610122514906465,
+          "wind_direction_degrees": 272.7666316817127,
+          "temperature_celsius": 18.95355016829507,
+          "relative_humidity": 41.28359178587445,
+          "pressure_kpa": 101.7623220879911,
+          "precipitation_mm": 0
+        },
+        {
+          "timestamp": "2025-08-16T06:30:13.810820",
+          "latitude": 55.1544,
+          "longitude": -60.443,
+          "wind_speed_kmh": 8.274701683617081,
+          "wind_direction_degrees": 247.62498830498268,
+          "temperature_celsius": 19.40452235359919,
+          "relative_humidity": 60.33922263416902,
+          "pressure_kpa": 101.46555808676482,
+          "precipitation_mm": 1.1776847215722874
         }
       ]
     },
     {
       "location_lat": 49.431,
       "location_lon": -53.9838,
-      "forecast_time": "2025-08-15T16:51:42.249739",
+      "forecast_time": "2025-08-15T18:30:13.916226",
       "forecasts": [
         {
-          "timestamp": "2025-08-15T17:51:42.249739",
+          "timestamp": "2025-08-15T19:30:13.916226",
           "latitude": 49.431,
           "longitude": -53.9838,
-          "wind_speed_kmh": 17.236814947154212,
-          "wind_direction_degrees": 289.39801114436835,
-          "temperature_celsius": 21.275391641252057,
-          "relative_humidity": 62.886563621109204,
-          "pressure_kpa": 101.0626290984006,
+          "wind_speed_kmh": 22.92728380131051,
+          "wind_direction_degrees": 281.8123715118782,
+          "temperature_celsius": 18.384426969368004,
+          "relative_humidity": 62.92131648873993,
+          "pressure_kpa": 101.7696043959262,
+          "precipitation_mm": 0.26583668484781464
+        },
+        {
+          "timestamp": "2025-08-15T20:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 19.08034763570852,
+          "wind_direction_degrees": 301.3196259182115,
+          "temperature_celsius": 19.077304356500782,
+          "relative_humidity": 45.70137474204749,
+          "pressure_kpa": 101.41049915119169,
+          "precipitation_mm": 0.3933508399279283
+        },
+        {
+          "timestamp": "2025-08-15T21:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 16.296979663958172,
+          "wind_direction_degrees": 224.13597188045478,
+          "temperature_celsius": 16.361196168134562,
+          "relative_humidity": 56.80906778460466,
+          "pressure_kpa": 101.84260932889588,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T18:51:42.249739",
+          "timestamp": "2025-08-15T22:30:13.916226",
           "latitude": 49.431,
           "longitude": -53.9838,
-          "wind_speed_kmh": 11.661474378493805,
-          "wind_direction_degrees": 250.56592319928174,
-          "temperature_celsius": 18.751013541316624,
-          "relative_humidity": 51.101039011284925,
-          "pressure_kpa": 100.85853064130701,
-          "precipitation_mm": 0.4273911982312838
+          "wind_speed_kmh": 21.25184005981375,
+          "wind_direction_degrees": 288.30960189939,
+          "temperature_celsius": 20.00187562411344,
+          "relative_humidity": 53.46577143556971,
+          "pressure_kpa": 100.38359724960033,
+          "precipitation_mm": 0.7345981143523459
         },
         {
-          "timestamp": "2025-08-15T19:51:42.249739",
+          "timestamp": "2025-08-15T23:30:13.916226",
           "latitude": 49.431,
           "longitude": -53.9838,
-          "wind_speed_kmh": 21.133328734317104,
-          "wind_direction_degrees": 266.4943263587692,
-          "temperature_celsius": 14.69584668992485,
-          "relative_humidity": 52.243944858507646,
-          "pressure_kpa": 100.82699056679012,
-          "precipitation_mm": 1.7273679309156211
+          "wind_speed_kmh": 21.82518598048832,
+          "wind_direction_degrees": 217.8651856009602,
+          "temperature_celsius": 15.555526395765607,
+          "relative_humidity": 53.24228269793652,
+          "pressure_kpa": 101.1488679200153,
+          "precipitation_mm": 1.1404796853964014
         },
         {
-          "timestamp": "2025-08-15T20:51:42.249739",
+          "timestamp": "2025-08-16T00:30:13.916226",
           "latitude": 49.431,
           "longitude": -53.9838,
-          "wind_speed_kmh": 23.645026643507773,
-          "wind_direction_degrees": 260.56119424256445,
-          "temperature_celsius": 13.657668093450969,
-          "relative_humidity": 40.02618897932457,
-          "pressure_kpa": 101.27397768425575,
-          "precipitation_mm": 0.742801394161809
+          "wind_speed_kmh": 12.881909145151194,
+          "wind_direction_degrees": 291.607205983245,
+          "temperature_celsius": 20.180920389459637,
+          "relative_humidity": 52.074914189206055,
+          "pressure_kpa": 101.26968639054381,
+          "precipitation_mm": 0.7669478402423662
         },
         {
-          "timestamp": "2025-08-15T21:51:42.249739",
+          "timestamp": "2025-08-16T01:30:13.916226",
           "latitude": 49.431,
           "longitude": -53.9838,
-          "wind_speed_kmh": 17.965500058200902,
-          "wind_direction_degrees": 249.24212572760433,
-          "temperature_celsius": 16.639721731082087,
-          "relative_humidity": 47.92944555685101,
-          "pressure_kpa": 101.56428095913284,
+          "wind_speed_kmh": 13.42271834927926,
+          "wind_direction_degrees": 326.99737931997254,
+          "temperature_celsius": 20.579224184515503,
+          "relative_humidity": 62.85370026423855,
+          "pressure_kpa": 102.22938244984964,
+          "precipitation_mm": 0.171570643578848
+        },
+        {
+          "timestamp": "2025-08-16T02:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 28.025523249279146,
+          "wind_direction_degrees": 296.2537280306582,
+          "temperature_celsius": 18.554709268254264,
+          "relative_humidity": 53.64092714789433,
+          "pressure_kpa": 100.75327879622573,
+          "precipitation_mm": 0.08873404714412625
+        },
+        {
+          "timestamp": "2025-08-16T03:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 6.534880040407229,
+          "wind_direction_degrees": 291.09503340760176,
+          "temperature_celsius": 20.612923942320457,
+          "relative_humidity": 70.6235196141353,
+          "pressure_kpa": 101.81479535156615,
+          "precipitation_mm": 0.9301393887053071
+        },
+        {
+          "timestamp": "2025-08-16T04:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 11.31009836510452,
+          "wind_direction_degrees": 245.51653977082307,
+          "temperature_celsius": 17.409832838141252,
+          "relative_humidity": 78.94850333109781,
+          "pressure_kpa": 101.76015130210823,
+          "precipitation_mm": 1.3839983001270788
+        },
+        {
+          "timestamp": "2025-08-16T05:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 7.659919436229299,
+          "wind_direction_degrees": 335.6091495342295,
+          "temperature_celsius": 19.709688787512526,
+          "relative_humidity": 47.42196754130794,
+          "pressure_kpa": 101.31783805968804,
+          "precipitation_mm": 1.1756604695457362
+        },
+        {
+          "timestamp": "2025-08-16T06:30:13.916226",
+          "latitude": 49.431,
+          "longitude": -53.9838,
+          "wind_speed_kmh": 32.12734547391622,
+          "wind_direction_degrees": 227.4590208423229,
+          "temperature_celsius": 19.060386477016944,
+          "relative_humidity": 45.96765776883174,
+          "pressure_kpa": 100.7139681988129,
           "precipitation_mm": 0
-        },
-        {
-          "timestamp": "2025-08-15T22:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 26.3902817218045,
-          "wind_direction_degrees": 288.3602963937644,
-          "temperature_celsius": 13.673193258113304,
-          "relative_humidity": 76.64275765764104,
-          "pressure_kpa": 100.35313623552749,
-          "precipitation_mm": 0
-        },
-        {
-          "timestamp": "2025-08-15T23:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 26.973438036096606,
-          "wind_direction_degrees": 193.4594589971177,
-          "temperature_celsius": 18.167922163152028,
-          "relative_humidity": 65.2371518572177,
-          "pressure_kpa": 100.3459890225572,
-          "precipitation_mm": 0.9484341668881062
-        },
-        {
-          "timestamp": "2025-08-16T00:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 7.3758485397905975,
-          "wind_direction_degrees": 220.75982399233652,
-          "temperature_celsius": 19.040648440184253,
-          "relative_humidity": 55.13919904948398,
-          "pressure_kpa": 100.66926725872909,
-          "precipitation_mm": 0.37738977150174224
-        },
-        {
-          "timestamp": "2025-08-16T01:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 17.430555091922507,
-          "wind_direction_degrees": 290.93925557104376,
-          "temperature_celsius": 14.496996413957884,
-          "relative_humidity": 63.44596197970483,
-          "pressure_kpa": 101.0389043304636,
-          "precipitation_mm": 0.750878813167303
-        },
-        {
-          "timestamp": "2025-08-16T02:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 9.564560458029154,
-          "wind_direction_degrees": 236.48418136712556,
-          "temperature_celsius": 16.53187506616943,
-          "relative_humidity": 67.41361867548687,
-          "pressure_kpa": 102.04791086311734,
-          "precipitation_mm": 1.7026810739198384
-        },
-        {
-          "timestamp": "2025-08-16T03:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 14.690150694215085,
-          "wind_direction_degrees": 290.1644942960816,
-          "temperature_celsius": 17.28723363356508,
-          "relative_humidity": 78.06096569485229,
-          "pressure_kpa": 100.85359739500498,
-          "precipitation_mm": 0.34115408481358256
-        },
-        {
-          "timestamp": "2025-08-16T04:51:42.249739",
-          "latitude": 49.431,
-          "longitude": -53.9838,
-          "wind_speed_kmh": 28.607623028829344,
-          "wind_direction_degrees": 294.0292548343557,
-          "temperature_celsius": 16.07612454415396,
-          "relative_humidity": 68.28727945790409,
-          "pressure_kpa": 100.52422597483827,
-          "precipitation_mm": 1.5532830839302427
         }
       ]
     },
     {
       "location_lat": 47.4254,
       "location_lon": -53.1021,
-      "forecast_time": "2025-08-15T16:51:42.350575",
+      "forecast_time": "2025-08-15T18:30:14.042767",
       "forecasts": [
         {
-          "timestamp": "2025-08-15T17:51:42.350575",
+          "timestamp": "2025-08-15T19:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 15.068690880888138,
-          "wind_direction_degrees": 274.1498636650776,
-          "temperature_celsius": 22.512803782667532,
-          "relative_humidity": 49.985491939101706,
-          "pressure_kpa": 100.86685835535948,
-          "precipitation_mm": 0.3142068057087557
+          "wind_speed_kmh": 19.70360266499563,
+          "wind_direction_degrees": 272.86788045045864,
+          "temperature_celsius": 16.312513295381503,
+          "relative_humidity": 45.57001573881377,
+          "pressure_kpa": 100.46450199016252,
+          "precipitation_mm": 1.4813568219460471
         },
         {
-          "timestamp": "2025-08-15T18:51:42.350575",
+          "timestamp": "2025-08-15T20:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 19.59387541843661,
-          "wind_direction_degrees": 244.41574606374425,
-          "temperature_celsius": 20.082345254408796,
-          "relative_humidity": 79.34087004783242,
-          "pressure_kpa": 100.3363337993587,
-          "precipitation_mm": 0.9411880383578688
-        },
-        {
-          "timestamp": "2025-08-15T19:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 20.06605845631479,
-          "wind_direction_degrees": 292.6895938083246,
-          "temperature_celsius": 17.72759634076653,
-          "relative_humidity": 51.84338505782556,
-          "pressure_kpa": 101.42492104665816,
-          "precipitation_mm": 0.12084677165589541
-        },
-        {
-          "timestamp": "2025-08-15T20:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 19.61918586128737,
-          "wind_direction_degrees": 226.6072596680859,
-          "temperature_celsius": 17.170220568392082,
-          "relative_humidity": 67.48637539901907,
-          "pressure_kpa": 101.19987445376796,
-          "precipitation_mm": 1.0098039955680376
-        },
-        {
-          "timestamp": "2025-08-15T21:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 19.099670735178396,
-          "wind_direction_degrees": 296.3657334532884,
-          "temperature_celsius": 16.369193523227118,
-          "relative_humidity": 72.05529227337107,
-          "pressure_kpa": 102.17608713238852,
+          "wind_speed_kmh": 20.083813072540043,
+          "wind_direction_degrees": 261.93053296956384,
+          "temperature_celsius": 18.114249413886693,
+          "relative_humidity": 50.05208266429531,
+          "pressure_kpa": 101.85125761900144,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-15T22:51:42.350575",
+          "timestamp": "2025-08-15T21:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 23.92233952453887,
-          "wind_direction_degrees": 278.64971063034335,
-          "temperature_celsius": 15.686235224286687,
-          "relative_humidity": 70.82360434300954,
-          "pressure_kpa": 102.00682812966498,
-          "precipitation_mm": 0.19240442439489436
+          "wind_speed_kmh": 20.68740861102395,
+          "wind_direction_degrees": 316.8945849954239,
+          "temperature_celsius": 16.617838946490956,
+          "relative_humidity": 65.22383011002765,
+          "pressure_kpa": 100.5620341251176,
+          "precipitation_mm": 0.6681008475493999
         },
         {
-          "timestamp": "2025-08-15T23:51:42.350575",
+          "timestamp": "2025-08-15T22:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 22.22272992672324,
-          "wind_direction_degrees": 278.0744464526075,
-          "temperature_celsius": 21.079829075984115,
-          "relative_humidity": 74.66622260554486,
-          "pressure_kpa": 101.6116432871224,
+          "wind_speed_kmh": 23.771742031701674,
+          "wind_direction_degrees": 254.18600833147548,
+          "temperature_celsius": 16.50937775192697,
+          "relative_humidity": 63.20444512254265,
+          "pressure_kpa": 102.25878602879317,
+          "precipitation_mm": 0.21979347141289562
+        },
+        {
+          "timestamp": "2025-08-15T23:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 22.627777958776218,
+          "wind_direction_degrees": 255.84771499884093,
+          "temperature_celsius": 20.02566184093664,
+          "relative_humidity": 49.93588171365962,
+          "pressure_kpa": 102.06472981651311,
+          "precipitation_mm": 1.688161250699467
+        },
+        {
+          "timestamp": "2025-08-16T00:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 21.707082867101008,
+          "wind_direction_degrees": 218.18999778207382,
+          "temperature_celsius": 17.33998787109857,
+          "relative_humidity": 45.90531939140733,
+          "pressure_kpa": 100.74990627452455,
+          "precipitation_mm": 1.2724114441287457
+        },
+        {
+          "timestamp": "2025-08-16T01:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 17.233794372596762,
+          "wind_direction_degrees": 250.63535760380168,
+          "temperature_celsius": 14.744977407448774,
+          "relative_humidity": 66.77921555744726,
+          "pressure_kpa": 101.07633109937565,
+          "precipitation_mm": 0.4531616979911528
+        },
+        {
+          "timestamp": "2025-08-16T02:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 16.479383519057592,
+          "wind_direction_degrees": 283.7693613702336,
+          "temperature_celsius": 15.481879236716038,
+          "relative_humidity": 76.6256683375177,
+          "pressure_kpa": 101.08902854014774,
+          "precipitation_mm": 0.3663692530815468
+        },
+        {
+          "timestamp": "2025-08-16T03:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 20.37621546471605,
+          "wind_direction_degrees": 308.8744981318817,
+          "temperature_celsius": 18.85220489619785,
+          "relative_humidity": 77.93620904064112,
+          "pressure_kpa": 100.79261620674312,
+          "precipitation_mm": 1.7496784868895863
+        },
+        {
+          "timestamp": "2025-08-16T04:30:14.041767",
+          "latitude": 47.4254,
+          "longitude": -53.1021,
+          "wind_speed_kmh": 26.0648387420918,
+          "wind_direction_degrees": 197.41363553336544,
+          "temperature_celsius": 18.041756188075425,
+          "relative_humidity": 61.40348255231109,
+          "pressure_kpa": 101.63823874091102,
           "precipitation_mm": 0
         },
         {
-          "timestamp": "2025-08-16T00:51:42.350575",
+          "timestamp": "2025-08-16T05:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 27.94981917486814,
-          "wind_direction_degrees": 239.4703888465828,
-          "temperature_celsius": 13.539524152746631,
-          "relative_humidity": 43.85593253396704,
-          "pressure_kpa": 101.94932038373328,
-          "precipitation_mm": 0.9583083351060258
+          "wind_speed_kmh": 32.86263509373982,
+          "wind_direction_degrees": 280.598427324334,
+          "temperature_celsius": 18.25827692128085,
+          "relative_humidity": 77.5980200247817,
+          "pressure_kpa": 102.11797472271888,
+          "precipitation_mm": 0.41281746619164383
         },
         {
-          "timestamp": "2025-08-16T01:51:42.350575",
+          "timestamp": "2025-08-16T06:30:14.041767",
           "latitude": 47.4254,
           "longitude": -53.1021,
-          "wind_speed_kmh": 21.08503544174275,
-          "wind_direction_degrees": 235.9239805469388,
-          "temperature_celsius": 19.092357920464288,
-          "relative_humidity": 79.1343118827548,
-          "pressure_kpa": 101.31189773897329,
-          "precipitation_mm": 1.288631608819361
-        },
-        {
-          "timestamp": "2025-08-16T02:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 29.31600935653101,
-          "wind_direction_degrees": 219.14532297458948,
-          "temperature_celsius": 17.48540734867553,
-          "relative_humidity": 53.67439062663388,
-          "pressure_kpa": 101.56360798142583,
-          "precipitation_mm": 0.3049926751846517
-        },
-        {
-          "timestamp": "2025-08-16T03:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 21.14002837655323,
-          "wind_direction_degrees": 251.57449488411967,
-          "temperature_celsius": 16.03683539400796,
-          "relative_humidity": 52.197516282780406,
-          "pressure_kpa": 101.78912459554985,
-          "precipitation_mm": 0.6571771916818778
-        },
-        {
-          "timestamp": "2025-08-16T04:51:42.350575",
-          "latitude": 47.4254,
-          "longitude": -53.1021,
-          "wind_speed_kmh": 15.256667174726712,
-          "wind_direction_degrees": 292.2554288555856,
-          "temperature_celsius": 18.34448007443456,
-          "relative_humidity": 57.7703553840641,
-          "pressure_kpa": 100.45367373958881,
-          "precipitation_mm": 1.4350222377221402
+          "wind_speed_kmh": 11.367243609999283,
+          "wind_direction_degrees": 303.68401134122416,
+          "temperature_celsius": 21.086884728365185,
+          "relative_humidity": 45.93623387037596,
+          "pressure_kpa": 101.51298461566724,
+          "precipitation_mm": 0.9702464831533795
         }
       ]
     }
   ],
   "predictions": [
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1133,11 +1157,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1145,11 +1169,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1157,11 +1181,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1169,11 +1193,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1181,11 +1205,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1193,11 +1217,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1205,11 +1229,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1217,11 +1241,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1229,11 +1253,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1241,11 +1265,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1253,11 +1277,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.5615,
       "longitude": -52.7126,
-      "aqhi_value": 10,
-      "pm25_concentration": 1070.2649691413235,
+      "aqhi_value": 9,
+      "pm25_concentration": 57.410474083034345,
       "source_fire_ids": [
         "248",
         "234"
@@ -1265,11 +1289,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1277,11 +1301,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1289,11 +1313,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1301,11 +1325,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1313,11 +1337,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1325,11 +1349,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1337,11 +1361,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1349,11 +1373,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1361,11 +1385,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1373,11 +1397,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1385,11 +1409,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1397,11 +1421,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.5189,
       "longitude": -52.8061,
-      "aqhi_value": 10,
-      "pm25_concentration": 1106.2934896394047,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.64782908004977,
       "source_fire_ids": [
         "248",
         "234"
@@ -1409,11 +1433,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1421,11 +1445,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1433,11 +1457,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1445,11 +1469,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1457,11 +1481,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1469,11 +1493,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1481,11 +1505,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1493,11 +1517,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1505,11 +1529,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1517,11 +1541,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1529,11 +1553,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1541,11 +1565,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.5297,
       "longitude": -52.9547,
-      "aqhi_value": 10,
-      "pm25_concentration": 1179.0881209256647,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.01254098503111,
       "source_fire_ids": [
         "248",
         "234"
@@ -1553,11 +1577,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1565,11 +1589,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1577,11 +1601,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1589,11 +1613,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1601,11 +1625,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1613,11 +1637,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1625,11 +1649,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1637,11 +1661,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1649,11 +1673,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1661,11 +1685,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1673,11 +1697,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1685,11 +1709,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.5361,
       "longitude": -52.8579,
-      "aqhi_value": 10,
-      "pm25_concentration": 1140.744237553559,
+      "aqhi_value": 9,
+      "pm25_concentration": 61.29546858519902,
       "source_fire_ids": [
         "248",
         "234"
@@ -1697,11 +1721,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1709,11 +1733,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1721,11 +1745,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1733,11 +1757,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1745,11 +1769,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1757,11 +1781,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1769,11 +1793,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1781,11 +1805,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1793,11 +1817,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1805,11 +1829,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1817,11 +1841,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1829,11 +1853,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.3875,
       "longitude": -53.1356,
-      "aqhi_value": 10,
-      "pm25_concentration": 1114.8736334790833,
+      "aqhi_value": 9,
+      "pm25_concentration": 59.1866027286834,
       "source_fire_ids": [
         "248",
         "234"
@@ -1841,11 +1865,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1853,11 +1877,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1865,11 +1889,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1877,11 +1901,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1889,11 +1913,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1901,11 +1925,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1913,11 +1937,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1925,11 +1949,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1937,11 +1961,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1949,11 +1973,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1961,11 +1985,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1973,11 +1997,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.5989,
       "longitude": -53.2644,
-      "aqhi_value": 10,
-      "pm25_concentration": 1234.978255441945,
+      "aqhi_value": 9,
+      "pm25_concentration": 63.019979825235524,
       "source_fire_ids": [
         "248",
         "234"
@@ -1985,11 +2009,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -1997,11 +2021,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2009,11 +2033,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2021,11 +2045,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2033,11 +2057,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2045,11 +2069,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2057,11 +2081,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2069,11 +2093,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2081,11 +2105,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2093,11 +2117,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2105,11 +2129,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2117,11 +2141,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.7369,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1332.1657541773868,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.73563695056522,
       "source_fire_ids": [
         "248",
         "234"
@@ -2129,11 +2153,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T16:51:42.352573",
+      "timestamp": "2025-08-15T18:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2141,11 +2165,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T17:51:42.352573",
+      "timestamp": "2025-08-15T19:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2153,11 +2177,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T18:51:42.352573",
+      "timestamp": "2025-08-15T20:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2165,11 +2189,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T19:51:42.352573",
+      "timestamp": "2025-08-15T21:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2177,11 +2201,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T20:51:42.352573",
+      "timestamp": "2025-08-15T22:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2189,11 +2213,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T21:51:42.352573",
+      "timestamp": "2025-08-15T23:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2201,11 +2225,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T22:51:42.352573",
+      "timestamp": "2025-08-16T00:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2213,11 +2237,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-15T23:51:42.352573",
+      "timestamp": "2025-08-16T01:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2225,11 +2249,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T00:51:42.352573",
+      "timestamp": "2025-08-16T02:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2237,11 +2261,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T01:51:42.352573",
+      "timestamp": "2025-08-16T03:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2249,11 +2273,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T02:51:42.352573",
+      "timestamp": "2025-08-16T04:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"
@@ -2261,11 +2285,11 @@
       "confidence": 0.75
     },
     {
-      "timestamp": "2025-08-16T03:51:42.352573",
+      "timestamp": "2025-08-16T05:30:14.044767",
       "latitude": 47.705,
       "longitude": -53.2144,
-      "aqhi_value": 10,
-      "pm25_concentration": 1314.8126952440825,
+      "aqhi_value": 9,
+      "pm25_concentration": 66.18855826376213,
       "source_fire_ids": [
         "248",
         "234"

@@ -89,7 +89,8 @@ const InfoPanel = ({ data, onClose, timelineHours, currentTimelineHour, onTimeli
         )}
         <AQHIIndicator 
           value={data.currentAQHI || data.aqhi} 
-          communityName={data.name} 
+          communityName={data.name}
+          pm25={data.pm25 || data.predictionData?.pm25_concentration}
         />
         <View style={styles.detailRow}>
           <Text style={styles.detailLabel}>GPS:</Text>

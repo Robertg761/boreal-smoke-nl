@@ -57,25 +57,58 @@ class DataUpdater:
                 forecast_time = current_time + timedelta(hours=hour)
                 
                 # Simple mock calculation based on distance to fires
+                # Base values for clean air
                 aqhi_value = 1  # Base value (good air quality)
-                pm25 = 5.0  # Base PM2.5
+                pm25 = 8.0  # Base PM2.5 in µg/m³ (normal background)
                 source_fires = []
                 
                 for fire in wildfires:
-                    # Calculate distance (simplified)
-                    distance = ((fire.latitude - lat)**2 + 
-                              (fire.longitude - lon)**2)**0.5
+                    # Calculate distance in degrees (roughly 111km per degree)
+                    distance_km = ((fire.latitude - lat)**2 + 
+                                  (fire.longitude - lon)**2)**0.5 * 111
                     
                     # If fire is within ~200km and out of control
-                    if distance < 2.0 and fire.status.value == "OC":
-                        # Increase AQHI based on distance and size
-                        impact = (200 - distance * 100) / 200 * (fire.size_hectares / 100)
-                        aqhi_value += int(impact * 3)
-                        pm25 += impact * 15
+                    if distance_km < 200 and fire.status.value == "OC":
+                        # Calculate impact based on distance and fire size
+                        # Closer fires have more impact
+                        distance_factor = max(0, (200 - distance_km) / 200)  # 0 to 1
+                        
+                        # Larger fires have more impact
+                        size_factor = min(1, fire.size_hectares / 1000)  # Cap at 1 for 1000+ hectares
+                        
+                        # Combined impact
+                        impact = distance_factor * size_factor
+                        
+                        # Add to PM2.5 realistically
+                        # Maximum addition of 50 µg/m³ per fire for very close, large fires
+                        pm25 += impact * 50
+                        
+                        # AQHI increases more gradually
+                        aqhi_value += impact * 4
+                        
                         source_fires.append(fire.fire_id)
                 
-                # Cap AQHI at 10
-                aqhi_value = min(10, max(1, aqhi_value))
+                # Calculate AQHI from PM2.5 using Canadian standards
+                # PM2.5 to AQHI approximation:
+                # 0-12 µg/m³ = AQHI 1-3
+                # 12-35 µg/m³ = AQHI 4-6
+                # 35-55 µg/m³ = AQHI 7-8
+                # 55-150 µg/m³ = AQHI 9-10
+                # 150+ µg/m³ = AQHI 10+
+                if pm25 <= 12:
+                    calculated_aqhi = 1 + (pm25 / 12) * 2
+                elif pm25 <= 35:
+                    calculated_aqhi = 4 + ((pm25 - 12) / 23) * 2
+                elif pm25 <= 55:
+                    calculated_aqhi = 7 + ((pm25 - 35) / 20)
+                elif pm25 <= 150:
+                    calculated_aqhi = 9 + ((pm25 - 55) / 95)
+                else:
+                    # Don't cap at 10 for extreme conditions
+                    calculated_aqhi = 10 + ((pm25 - 150) / 50)
+                
+                # Use the calculated AQHI
+                aqhi_value = round(max(1, calculated_aqhi))
                 
                 prediction = AQHIPrediction(
                     timestamp=forecast_time,

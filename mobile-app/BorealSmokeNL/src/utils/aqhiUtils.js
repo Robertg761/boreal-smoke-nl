@@ -135,6 +135,49 @@ export const getAQHILegend = () => [
   { range: '10+', ...AQHI_LEVELS.VERY_HIGH },
 ];
 
+/**
+ * Calculate AQHI from PM2.5 concentration
+ * Based on Canadian AQHI formula approximation
+ * PM2.5 (µg/m³) to AQHI mapping:
+ * 0-12: 1-3 (Low)
+ * 12-35: 4-6 (Moderate) 
+ * 35-55: 7-8 (High)
+ * 55-150: 9-10 (High)
+ * 150-250: 11-15 (Very High)
+ * 250+: 16+ (Extreme)
+ */
+export const calculateAQHIFromPM25 = (pm25) => {
+  if (!pm25 || pm25 < 0) return 1;
+  
+  // Use a more realistic scale based on Canadian standards
+  if (pm25 <= 12) {
+    // 0-12 µg/m³ -> AQHI 1-3
+    return Math.round(1 + (pm25 / 12) * 2);
+  } else if (pm25 <= 35) {
+    // 12-35 µg/m³ -> AQHI 4-6
+    return Math.round(4 + ((pm25 - 12) / 23) * 2);
+  } else if (pm25 <= 55) {
+    // 35-55 µg/m³ -> AQHI 7-8
+    return Math.round(7 + ((pm25 - 35) / 20));
+  } else if (pm25 <= 150) {
+    // 55-150 µg/m³ -> AQHI 9-10
+    return Math.round(9 + ((pm25 - 55) / 95));
+  } else if (pm25 <= 250) {
+    // 150-250 µg/m³ -> AQHI 11-15
+    return Math.round(11 + ((pm25 - 150) / 100) * 4);
+  } else if (pm25 <= 500) {
+    // 250-500 µg/m³ -> AQHI 16-20
+    return Math.round(16 + ((pm25 - 250) / 250) * 4);
+  } else {
+    // 500+ µg/m³ -> AQHI 20+
+    // For extreme values like 1000+, show very high numbers
+    if (pm25 >= 1000) {
+      return Math.round(25 + ((pm25 - 1000) / 200));
+    }
+    return Math.min(25, Math.round(20 + ((pm25 - 500) / 100)));
+  }
+};
+
 // Export all levels for direct access if needed
 export const AQHI_THRESHOLDS = {
   LOW_MAX: AQHI_LEVELS.LOW.max,
@@ -152,5 +195,6 @@ export default {
   formatAQHIValue,
   getAQHIColorWithOpacity,
   getAQHILegend,
+  calculateAQHIFromPM25,
   AQHI_THRESHOLDS,
 };

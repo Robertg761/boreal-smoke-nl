@@ -12,11 +12,18 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
+import { calculateAQHIFromPM25 } from '../utils/aqhiUtils';
 
-const AQHIIndicator = ({ value, communityName }) => {
+const AQHIIndicator = ({ value, communityName, pm25 = null }) => {
+  // Use the AQHI value directly from backend (now properly calculated)
+  const actualValue = value;
+  
   // Handle null/undefined values
-  const displayValue = value !== null && value !== undefined ? value : 'N/A';
+  const displayValue = actualValue !== null && actualValue !== undefined ? actualValue : 'N/A';
   const numericValue = typeof displayValue === 'number' ? displayValue : 0;
+  
+  // Format PM2.5 value
+  const pm25Display = pm25 !== null ? `${Math.round(pm25)} µg/m³` : null;
   
   const getAQHIInfo = (val) => {
     if (val <= 3) {
@@ -26,6 +33,7 @@ const AQHIIndicator = ({ value, communityName }) => {
         gradientColors: ['#00FF00', '#00DD00'],
         icon: 'emoticon-happy',
         message: 'Ideal air quality for outdoor activities',
+        healthAdvice: 'Enjoy your usual outdoor activities',
       };
     } else if (val <= 6) {
       return {
@@ -34,6 +42,7 @@ const AQHIIndicator = ({ value, communityName }) => {
         gradientColors: ['#FFFF00', '#FFD700'],
         icon: 'emoticon-neutral',
         message: 'Consider reducing prolonged outdoor exertion',
+        healthAdvice: 'Sensitive individuals should consider reducing prolonged or heavy exertion',
       };
     } else if (val <= 10) {
       return {
@@ -42,14 +51,19 @@ const AQHIIndicator = ({ value, communityName }) => {
         gradientColors: ['#FFA500', '#FF8C00'],
         icon: 'emoticon-sad',
         message: 'Reduce outdoor activities if experiencing symptoms',
+        healthAdvice: 'Children and elderly should reduce physical exertion',
       };
     } else {
+      // Values above 10 - extreme conditions
       return {
-        label: 'Very High Risk',
+        label: val > 15 ? 'Extreme Risk' : 'Very High Risk',
         color: '#FF0000',
-        gradientColors: ['#FF0000', '#CC0000'],
-        icon: 'alert-circle',
-        message: 'Avoid outdoor activities',
+        gradientColors: val > 15 ? ['#8B0000', '#FF0000'] : ['#FF0000', '#CC0000'],
+        icon: val > 15 ? 'alert-octagon' : 'alert-circle',
+        message: val > 15 ? 'STAY INDOORS - Hazardous air quality' : 'Avoid outdoor activities',
+        healthAdvice: val > 15 ? 
+          'Everyone should avoid all outdoor exertion' : 
+          'Everyone should reduce outdoor activities',
       };
     }
   };
@@ -69,27 +83,48 @@ const AQHIIndicator = ({ value, communityName }) => {
       </View>
       
       <View style={styles.valueContainer}>
-        <Text style={styles.value}>{displayValue}</Text>
+        <Text style={styles.value}>
+          {displayValue}{numericValue > 10 ? '+' : ''}
+        </Text>
         <Text style={styles.label}>{info.label}</Text>
       </View>
       
       <Text style={styles.message}>{info.message}</Text>
+      {pm25Display && (
+        <Text style={styles.pm25Text}>PM2.5: {pm25Display}</Text>
+      )}
       
       <View style={styles.scale}>
+        <View style={styles.scaleHeader}>
+          <Text style={styles.scaleTitle}>Air Quality Health Index</Text>
+        </View>
         <View style={styles.scaleBar}>
           {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(i => (
             <View
               key={i}
               style={[
                 styles.scaleSegment,
-                { opacity: i <= numericValue ? 1 : 0.3 }
+                { 
+                  backgroundColor: i <= 3 ? '#00FF00' : 
+                                   i <= 6 ? '#FFFF00' : 
+                                   i <= 10 ? '#FFA500' : '#FF0000',
+                  opacity: i <= Math.min(numericValue, 10) ? 1 : 0.3 
+                }
               ]}
             />
           ))}
         </View>
         <View style={styles.scaleLabels}>
-          <Text style={styles.scaleLabel}>1</Text>
-          <Text style={styles.scaleLabel}>10+</Text>
+          <Text style={styles.scaleLabel}>Low</Text>
+          <Text style={styles.scaleLabel}>Moderate</Text>
+          <Text style={styles.scaleLabel}>High</Text>
+          <Text style={styles.scaleLabel}>Very High</Text>
+        </View>
+        <View style={styles.scaleNumbers}>
+          <Text style={styles.scaleNumber}>1</Text>
+          <Text style={styles.scaleNumber}>3</Text>
+          <Text style={styles.scaleNumber}>6</Text>
+          <Text style={styles.scaleNumber}>10+</Text>
         </View>
       </View>
     </LinearGradient>
@@ -162,6 +197,37 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#FFF',
     opacity: 0.7,
+    flex: 1,
+    textAlign: 'center',
+  },
+  pm25Text: {
+    fontSize: 12,
+    color: '#FFF',
+    opacity: 0.8,
+    marginBottom: 5,
+    fontStyle: 'italic',
+  },
+  scaleHeader: {
+    marginBottom: 5,
+  },
+  scaleTitle: {
+    fontSize: 11,
+    color: '#FFF',
+    opacity: 0.8,
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  scaleNumbers: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 2,
+  },
+  scaleNumber: {
+    fontSize: 9,
+    color: '#FFF',
+    opacity: 0.6,
+    flex: 1,
+    textAlign: 'center',
   },
 });
 
