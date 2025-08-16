@@ -23,6 +23,8 @@ DerivedData
 **/.xcode.env.local
 
 # API Keys and Secrets
+.env
+.env.*
 ios/Config.xcconfig
 ios/Config.plist
 

@@ -65,11 +65,19 @@ class DataService {
     this.isLoading = true;
 
     try {
-      // Fetch from API with retry mechanism
+      // Fetch live data from API
       const data = await this.fetchWithRetry(`${API_BASE_URL}/data.json`);
       
+      // Ensure data has the expected structure
+      const validatedData = {
+        wildfires: data.wildfires || [],
+        aqhi: data.aqhi || data.predictions || [],
+        weather: data.weather || {},
+        ...data
+      };
+      
       // Process and enhance data
-      const processedData = this.processData(data);
+      const processedData = this.processData(validatedData);
       
       // Update cache
       this.cache = processedData;
@@ -155,10 +163,23 @@ class DataService {
    * Process raw data to enhance it for the app
    */
   processData(data) {
+    // Handle undefined or null data
+    if (!data || typeof data !== 'object') {
+      debugWarn('Invalid data received, using empty dataset');
+      return {
+        wildfires: [],
+        aqhi: [],
+        weather: {},
+        processedAt: new Date().toISOString(),
+      };
+    }
+    
     return {
       ...data,
       processedAt: new Date().toISOString(),
       wildfires: this.processWildfires(data.wildfires || []),
+      aqhi: data.aqhi || [],
+      weather: data.weather || {},
     };
   }
 
@@ -166,29 +187,56 @@ class DataService {
    * Process wildfire data
    */
   processWildfires(wildfires) {
+    // Handle undefined or non-array input
+    if (!Array.isArray(wildfires)) {
+      debugWarn('Wildfires data is not an array, returning empty array');
+      return [];
+    }
+    
     return wildfires.map(fire => {
-      // Validate coordinates
-      const lat = parseFloat(fire.latitude);
-      const lon = parseFloat(fire.longitude);
-      
-      if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
-        debugError(`Invalid coordinates for fire ${fire.fire_id}: ${lat}, ${lon}`);
-        // Skip this fire or use default location
+      try {
+        // Handle undefined fire object
+        if (!fire || typeof fire !== 'object') {
+          return null;
+        }
+        
+        // Validate coordinates
+        const lat = parseFloat(fire.latitude);
+        const lon = parseFloat(fire.longitude);
+        
+        if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+          debugError(`Invalid coordinates for fire ${fire.fire_id}: ${lat}, ${lon}`);
+          // Skip this fire or use default location
+          return null;
+        }
+        
+        // Use our location utilities to get proper fire location - wrapped in try/catch
+        let location = {
+          primary: `Fire ${fire.fire_id || 'Unknown'}`,
+          secondary: '',
+          detailed: '',
+          coordinates: `${lat.toFixed(3)}°N, ${Math.abs(lon).toFixed(3)}°W`
+        };
+        
+        try {
+          location = getFireLocation(fire);
+        } catch (locError) {
+          debugError('Error getting fire location:', locError);
+        }
+        
+        return {
+          ...fire,
+          latitude: lat,
+          longitude: lon,
+          displayName: location.primary, // Use the properly calculated location name
+          locationDetails: location, // Store full location info for potential use
+          statusColor: this.getStatusColor(fire.status),
+          sizeCategory: this.getSizeCategory(fire.size_hectares || 0),
+        };
+      } catch (error) {
+        debugError('Error processing fire:', error);
         return null;
       }
-      
-      // Use our location utilities to get proper fire location
-      const location = getFireLocation(fire);
-      
-      return {
-        ...fire,
-        latitude: lat,
-        longitude: lon,
-        displayName: location.primary, // Use the properly calculated location name
-        locationDetails: location, // Store full location info for potential use
-        statusColor: this.getStatusColor(fire.status),
-        sizeCategory: this.getSizeCategory(fire.size_hectares),
-      };
     }).filter(fire => fire !== null); // Remove invalid fires
   }
 

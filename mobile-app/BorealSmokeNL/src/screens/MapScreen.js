@@ -16,6 +16,7 @@ import {
   Platform,
   Alert,
   Animated,
+  SafeAreaView,
 } from 'react-native';
 import MapView, { Marker, Circle, Overlay, PROVIDER_GOOGLE } from 'react-native-maps';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -150,10 +151,18 @@ const MapScreen = () => {
    * Render smoke overlays for Out of Control fires - memoized
    */
   const renderSmokeOverlays = useMemo(() => {
-    if (!data?.wildfires) return null;
+    if (!data?.wildfires || !Array.isArray(data.wildfires)) return null;
     
     // Only show smoke for Out of Control fires
-    const ocFires = data.wildfires.filter(fire => fire.status === 'OC');
+    const ocFires = data.wildfires.filter(fire => {
+      // Validate fire object has required properties
+      return fire && 
+             fire.status === 'OC' && 
+             typeof fire.latitude === 'number' && 
+             typeof fire.longitude === 'number' &&
+             !isNaN(fire.latitude) && 
+             !isNaN(fire.longitude);
+    });
     
     return ocFires.map((fire) => {
       // Calculate smoke radius based on fire size
@@ -166,13 +175,22 @@ const MapScreen = () => {
       
       const baseRadius = getBaseRadius(fire.size_hectares || 0);
       
+      // Ensure coordinates are valid numbers
+      const lat = Number(fire.latitude);
+      const lon = Number(fire.longitude);
+      
+      if (isNaN(lat) || isNaN(lon)) {
+        console.warn(`Invalid coordinates for fire ${fire.fire_id}`);
+        return null;
+      }
+      
       return (
         <React.Fragment key={`smoke-${fire.fire_id}`}>
           {/* Outer smoke layer - lightest */}
           <Circle
             center={{
-              latitude: fire.latitude,
-              longitude: fire.longitude,
+              latitude: lat,
+              longitude: lon,
             }}
             radius={baseRadius}
             fillColor="rgba(105, 105, 105, 0.15)"
@@ -182,8 +200,8 @@ const MapScreen = () => {
           {/* Middle smoke layer */}
           <Circle
             center={{
-              latitude: fire.latitude,
-              longitude: fire.longitude,
+              latitude: lat,
+              longitude: lon,
             }}
             radius={baseRadius * 0.6}
             fillColor="rgba(105, 105, 105, 0.25)"
@@ -194,30 +212,37 @@ const MapScreen = () => {
           {fire.size_hectares > 1000 && (
             <Circle
               center={{
-                latitude: fire.latitude,
-                longitude: fire.longitude,
+                latitude: lat,
+                longitude: lon,
               }}
               radius={baseRadius * 0.3}
               fillColor="rgba(255, 69, 0, 0.2)"
               strokeColor="rgba(255, 69, 0, 0.4)"
               strokeWidth={1}
-              strokeDashArray={[10, 5]}
-              lineDashPhase={0}
             />
           )}
         </React.Fragment>
       );
-    });
+    }).filter(item => item !== null);
   }, [data?.wildfires]);
 
   /**
    * Render wildfire markers - memoized
    */
   const renderFireMarkers = useMemo(() => {
-    if (!data?.wildfires) return null;
+    if (!data?.wildfires || !Array.isArray(data.wildfires)) return null;
+    
+    // Filter out fires with invalid coordinates
+    const validFires = data.wildfires.filter(fire => {
+      return fire && 
+             typeof fire.latitude === 'number' && 
+             typeof fire.longitude === 'number' &&
+             !isNaN(fire.latitude) && 
+             !isNaN(fire.longitude);
+    });
     
     // Sort fires by size so smaller ones render on top
-    const sortedFires = [...data.wildfires].sort((a, b) => 
+    const sortedFires = [...validFires].sort((a, b) => 
       (b.size_hectares || 0) - (a.size_hectares || 0)
     );
     
@@ -291,16 +316,16 @@ const MapScreen = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {/* Map */}
       <MapView
         ref={mapRef}
         style={styles.map}
         initialRegion={AVALON_REGION}
-        provider={Platform.OS === 'ios' ? null : PROVIDER_GOOGLE}
+        provider={PROVIDER_GOOGLE} // Use Google Maps on both platforms
         mapType={mapType}
         showsUserLocation={true}
-        showsMyLocationButton={true}
+        showsMyLocationButton={false}
         showsCompass={true}
       >
         {renderSmokeOverlays}
@@ -356,7 +381,7 @@ const MapScreen = () => {
           </TouchableOpacity>
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -450,18 +475,17 @@ const styles = StyleSheet.create({
   sideControls: {
     position: 'absolute',
     right: 10,
-    bottom: 20,
-    flexDirection: 'row',
+    bottom: 30,
+    flexDirection: 'column',
     gap: 10,
   },
   controlButton: {
-    backgroundColor: '#FFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     width: BUTTON_SIZE,
     height: BUTTON_SIZE,
-    borderRadius: BUTTON_SIZE / 2,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
     ...STANDARD_SHADOW,
   },
   fireMarker: {

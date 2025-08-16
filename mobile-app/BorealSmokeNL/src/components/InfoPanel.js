@@ -72,17 +72,18 @@ const InfoPanel = ({ data, onClose }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    bottom: 60,
+    bottom: 90,
     left: 10,
     right: 10,
     backgroundColor: 'white',
-    borderRadius: 15,
+    borderRadius: 12,
     padding: 15,
     elevation: 5,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    maxHeight: 220,
   },
   closeButton: {
     position: 'absolute',

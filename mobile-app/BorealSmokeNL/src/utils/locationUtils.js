@@ -642,66 +642,139 @@ export const getLocationDescription = (lat, lon, name = null) => {
   }
 };
 
+// Manual overrides for specific fire locations based on local knowledge
+// Key is "lat,lon" rounded to 2 decimal places, value is the correct location name
+const LOCATION_OVERRIDES = {
+  // Holyrood fire (ID 237) - actual coordinates: 47.4254, -53.1021
+  // Rounds to 47.43, -53.10
+  '47.43,-53.10': 'Holyrood',
+  
+  // Add more overrides as needed for other problematic fires
+  // Format: 'lat.xx,lon.xx': 'Actual Location Name',
+};
+
 /**
  * Format fire location for display
  */
 export const getFireLocation = (fire) => {
-  // Simply get the nearest landmark for accuracy
-  const nearest = getNearestLandmark(fire.latitude, fire.longitude);
-  
-  // Generate fire name based on location
-  let fireName = null;
-  
-  if (nearest.distance < 3) {
-    // Very close to a landmark - use its name directly
-    fireName = nearest.name;
-  } else if (nearest.distance < 15) {
-    // Close enough to reference with direction
-    const direction = getDirection(nearest.lat, nearest.lon, fire.latitude, fire.longitude);
-    const directionShort = {
-      'north': 'N',
-      'northeast': 'NE', 
-      'east': 'E',
-      'southeast': 'SE',
-      'south': 'S',
-      'southwest': 'SW',
-      'west': 'W',
-      'northwest': 'NW'
-    }[direction];
-    fireName = `${nearest.name} ${directionShort}`;
-  } else if (nearest.distance < 30) {
-    // Include distance for clarity
-    const direction = getDirection(nearest.lat, nearest.lon, fire.latitude, fire.longitude);
-    const directionShort = {
-      'north': 'N',
-      'northeast': 'NE', 
-      'east': 'E',
-      'southeast': 'SE',
-      'south': 'S',
-      'southwest': 'SW',
-      'west': 'W',
-      'northwest': 'NW'
-    }[direction];
-    fireName = `${Math.round(nearest.distance)}km ${directionShort} of ${nearest.name}`;
-  } else {
-    // Far from landmarks - still reference the nearest one with distance
-    const direction = getDirection(nearest.lat, nearest.lon, fire.latitude, fire.longitude);
-    const directionShort = {
-      'north': 'N',
-      'northeast': 'NE', 
-      'east': 'E',
-      'southeast': 'SE',
-      'south': 'S',
-      'southwest': 'SW',
-      'west': 'W',
-      'northwest': 'NW'
-    }[direction];
-    // Always show nearest community even if far
-    fireName = `${Math.round(nearest.distance)}km ${directionShort} of ${nearest.name}`;
+  // Check for manual override first
+  const overrideKey = `${fire.latitude.toFixed(2)},${fire.longitude.toFixed(2)}`;
+  const override = LOCATION_OVERRIDES[overrideKey];
+  if (override) {
+    // Return the override location directly
+    return {
+      primary: `${override} Fire`,
+      secondary: getRegion(fire.latitude, fire.longitude),
+      detailed: `${override}, ${getRegion(fire.latitude, fire.longitude)}`,
+      coordinates: `${fire.latitude.toFixed(3)}°N, ${Math.abs(fire.longitude).toFixed(3)}°W`,
+    };
   }
   
-  // Create location object directly without re-processing through getLocationDescription
-  // This avoids the issue where getLocationDescription was overriding our carefully chosen name
+  // First, find ALL nearby landmarks within a reasonable radius
+  const searchRadius = 30; // km - increased to find more options
+  const nearbyPlaces = [];
+  
+  for (const landmark of LANDMARKS) {
+    const distance = calculateDistance(fire.latitude, fire.longitude, landmark.lat, landmark.lon);
+    if (distance <= searchRadius) {
+      nearbyPlaces.push({ ...landmark, distance });
+    }
+  }
+  
+  // Sort by distance
+  nearbyPlaces.sort((a, b) => a.distance - b.distance);
+  
+  // If no places within search radius, fall back to nearest
+  if (nearbyPlaces.length === 0) {
+    const nearest = getNearestLandmark(fire.latitude, fire.longitude);
+    nearbyPlaces.push(nearest);
+  }
+  
+  // Now intelligently select the best place to reference
+  let selectedPlace = null;
+  let fireName = null;
+  
+  // SPECIAL HANDLING: Check if fire coordinates EXACTLY match a known location
+  // This handles the case where the fire is literally AT the location coordinates
+  const exactMatch = LANDMARKS.find(l => 
+    Math.abs(l.lat - fire.latitude) < 0.001 && 
+    Math.abs(l.lon - fire.longitude) < 0.001
+  );
+  
+  if (exactMatch) {
+    // Fire is exactly at this location
+    fireName = exactMatch.name;
+  } else {
+    // Check if we're very close to a place (within ~2km)
+    const veryCloseRadius = 2.0; // km
+    
+    // Find the closest significant place (town/city)
+    let closestTown = null;
+    let closestCommunity = null;
+    
+    for (const place of nearbyPlaces) {
+      if (place.distance <= veryCloseRadius) {
+        if ((place.type === 'city' || place.type === 'town') && !closestTown) {
+          closestTown = place;
+        } else if (!closestCommunity) {
+          closestCommunity = place;
+        }
+      }
+    }
+    
+    // Use the closest town if available, otherwise the closest place
+    if (closestTown) {
+      selectedPlace = closestTown;
+      fireName = closestTown.name;
+    } else if (closestCommunity && closestCommunity.distance <= veryCloseRadius) {
+      selectedPlace = closestCommunity;
+      fireName = closestCommunity.name;
+    } else {
+      // Not very close to anything, find best reference point
+      selectedPlace = nearbyPlaces[0]; // Start with absolute nearest
+      
+      // But check if there's a more significant place nearby that would be better
+      for (const place of nearbyPlaces) {
+        // Stop if we're looking too far from the nearest
+        if (place.distance > selectedPlace.distance * 1.5 && place.distance > 10) break;
+        
+        // Prefer towns/cities over communities/landmarks
+        if ((place.type === 'city' || place.type === 'town') && 
+            (selectedPlace.type === 'community' || selectedPlace.type === 'landmark' || selectedPlace.type === 'park')) {
+          // Only switch if it's not too much farther (within 5km extra)
+          if (place.distance <= selectedPlace.distance + 5) {
+            selectedPlace = place;
+          }
+        }
+      }
+      
+      // Format the name based on distance
+      const direction = getDirection(selectedPlace.lat, selectedPlace.lon, fire.latitude, fire.longitude);
+      const directionShort = {
+        'north': 'N',
+        'northeast': 'NE', 
+        'east': 'E',
+        'southeast': 'SE',
+        'south': 'S',
+        'southwest': 'SW',
+        'west': 'W',
+        'northwest': 'NW'
+      }[direction];
+      
+      if (selectedPlace.distance < 5) {
+        // Close - just add direction
+        fireName = `${selectedPlace.name} ${directionShort}`;
+      } else if (selectedPlace.distance < 15) {
+        // Medium distance - include distance
+        fireName = `${Math.round(selectedPlace.distance)}km ${directionShort} of ${selectedPlace.name}`;
+      } else {
+        // Far away - always include distance
+        fireName = `${Math.round(selectedPlace.distance)}km ${directionShort} of ${selectedPlace.name}`;
+      }
+    }
+  }
+  
+  // Create location object
   const location = {
     primary: fireName ? `${fireName} Fire` : `Fire #${fire.fire_id || 'Unknown'}`,
     secondary: getRegion(fire.latitude, fire.longitude),

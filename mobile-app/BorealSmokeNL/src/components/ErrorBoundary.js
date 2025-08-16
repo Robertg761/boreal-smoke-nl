@@ -33,8 +33,12 @@ class ErrorBoundary extends React.Component {
 
   componentDidCatch(error, errorInfo) {
     // Log error details for debugging
-    console.error('Error caught by boundary:', error);
-    console.error('Error info:', errorInfo);
+    console.error('=====================================');
+    console.error('ERROR CAUGHT BY BOUNDARY:');
+    console.error('Error message:', error.toString());
+    console.error('Error stack:', error.stack);
+    console.error('Component stack:', errorInfo.componentStack);
+    console.error('=====================================');
     
     // Update state with error details
     this.setState(prevState => ({
@@ -53,7 +57,7 @@ class ErrorBoundary extends React.Component {
     if (__DEV__) {
       Alert.alert(
         'Error Detected',
-        `An error occurred: ${error.toString()}`,
+        `An error occurred: ${error.toString()}\n\nCheck console for details.`,
         [{ text: 'OK' }]
       );
     }
