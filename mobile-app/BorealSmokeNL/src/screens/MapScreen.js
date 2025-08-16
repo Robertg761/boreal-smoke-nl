@@ -19,6 +19,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import MapView, { Marker, Circle, Overlay, PROVIDER_GOOGLE } from 'react-native-maps';
+import { GOOGLE_MAPS_API_KEY } from '@env';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import DataService from '../services/DataService';
 import InfoPanel from '../components/InfoPanel';
@@ -323,6 +324,7 @@ const MapScreen = () => {
         style={styles.map}
         initialRegion={AVALON_REGION}
         provider={PROVIDER_GOOGLE} // Use Google Maps on both platforms
+        googleMapId={GOOGLE_MAPS_API_KEY}
         mapType={mapType}
         showsUserLocation={true}
         showsMyLocationButton={false}
