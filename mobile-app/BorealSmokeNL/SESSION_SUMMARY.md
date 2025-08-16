@@ -74,7 +74,7 @@ pod install
 
 Then add your API key to `ios/Config.xcconfig`:
 ```
-GOOGLE_MAPS_API_KEY = AIzaSyDYuhc5zKUiPSgFwJ6npbUjKK-EQxD-rM0
+GOOGLE_MAPS_API_KEY = YOUR_API_KEY_HERE
 ```
 
 ---
