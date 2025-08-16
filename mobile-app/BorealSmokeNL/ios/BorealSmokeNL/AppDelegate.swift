@@ -15,9 +15,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    // Initialize Google Maps SDK
-    // TODO: Replace with your actual Google Maps API key for iOS
-    GMSServices.provideAPIKey("YOUR_IOS_GOOGLE_MAPS_API_KEY")
+    // Initialize Google Maps SDK with key from Config.xcconfig
+    if let path = Bundle.main.path(forResource: "Config", ofType: "plist"),
+       let config = NSDictionary(contentsOfFile: path),
+       let apiKey = config["GoogleMapsAPIKey"] as? String {
+        GMSServices.provideAPIKey(apiKey)
+    } else {
+        // Fallback to build configuration if plist not found
+        let apiKey = Bundle.main.object(forInfoDictionaryKey: "GoogleMapsAPIKey") as? String ?? ""
+        if !apiKey.isEmpty {
+            GMSServices.provideAPIKey(apiKey)
+        } else {
+            print("Warning: Google Maps API key not found")
+        }
+    }
     
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)

@@ -22,6 +22,10 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 
+# API Keys and Secrets
+ios/Config.xcconfig
+ios/Config.plist
+
 # Android/IntelliJ
 #
 build/
