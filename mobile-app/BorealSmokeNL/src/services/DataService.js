@@ -5,17 +5,20 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getFireLocation } from '../utils/locationUtils';
+import { debugLog, debugWarn, debugError } from '../utils/debug';
 
 const API_BASE_URL = 'https://robertg761.github.io/boreal-smoke-nl';
 const CACHE_KEY = 'boreal_smoke_data';
 const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
 const MAX_RETRY_ATTEMPTS = 3;
 const INITIAL_RETRY_DELAY = 1000; // 1 second
+const MIN_FETCH_INTERVAL = 5000; // Minimum 5 seconds between fetches
 
 class DataService {
   constructor() {
     this.cache = null;
     this.lastFetch = null;
+    this.lastFetchAttempt = 0;
     this.isLoading = false;
     this.listeners = [];
   }
@@ -46,6 +49,14 @@ class DataService {
       return this.cache;
     }
 
+    // Rate limiting - prevent too frequent fetches
+    const now = Date.now();
+    if (now - this.lastFetchAttempt < MIN_FETCH_INTERVAL) {
+      debugWarn('Rate limit: Fetch attempted too soon');
+      return this.cache || this.getStoredData();
+    }
+    this.lastFetchAttempt = now;
+
     // Prevent multiple simultaneous fetches
     if (this.isLoading) {
       return this.cache || this.getStoredData();
@@ -73,7 +84,7 @@ class DataService {
       return processedData;
       
     } catch (error) {
-      console.error('Error fetching data after retries:', error);
+      debugError('Error fetching data after retries:', error);
       
       // Try to return cached data
       const storedData = await this.getStoredData();
@@ -98,6 +109,11 @@ class DataService {
    * Fetch with exponential backoff retry logic
    */
   async fetchWithRetry(url, attempt = 1) {
+    // Validate URL protocol - enforce HTTPS
+    if (!url.startsWith('https://')) {
+      throw new Error('Only HTTPS connections are allowed for security');
+    }
+    
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
@@ -121,7 +137,7 @@ class DataService {
       // Check if we should retry
       if (attempt < MAX_RETRY_ATTEMPTS) {
         const delay = INITIAL_RETRY_DELAY * Math.pow(2, attempt - 1); // Exponential backoff
-        console.log(`Retry attempt ${attempt}/${MAX_RETRY_ATTEMPTS} after ${delay}ms...`);
+        debugLog(`Retry attempt ${attempt}/${MAX_RETRY_ATTEMPTS} after ${delay}ms...`);
         
         // Wait before retrying
         await new Promise(resolve => setTimeout(resolve, delay));
@@ -151,23 +167,29 @@ class DataService {
    */
   processWildfires(wildfires) {
     return wildfires.map(fire => {
+      // Validate coordinates
+      const lat = parseFloat(fire.latitude);
+      const lon = parseFloat(fire.longitude);
+      
+      if (isNaN(lat) || isNaN(lon) || lat < -90 || lat > 90 || lon < -180 || lon > 180) {
+        debugError(`Invalid coordinates for fire ${fire.fire_id}: ${lat}, ${lon}`);
+        // Skip this fire or use default location
+        return null;
+      }
+      
       // Use our location utilities to get proper fire location
       const location = getFireLocation(fire);
       
-      // Debug logging
-      console.log(`Processing fire ${fire.fire_id}:`);
-      console.log(`  Coords: ${fire.latitude}, ${fire.longitude}`);
-      console.log(`  Raw name: ${fire.fire_name}`);
-      console.log(`  Calculated name: ${location.primary}`);
-      
       return {
         ...fire,
+        latitude: lat,
+        longitude: lon,
         displayName: location.primary, // Use the properly calculated location name
         locationDetails: location, // Store full location info for potential use
         statusColor: this.getStatusColor(fire.status),
         sizeCategory: this.getSizeCategory(fire.size_hectares),
       };
-    });
+    }).filter(fire => fire !== null); // Remove invalid fires
   }
 
 
@@ -213,7 +235,7 @@ class DataService {
         timestamp: Date.now(),
       }));
     } catch (error) {
-      console.error('Error storing data:', error);
+      debugError('Error storing data:', error);
     }
   }
 
@@ -231,7 +253,7 @@ class DataService {
         }
       }
     } catch (error) {
-      console.error('Error retrieving stored data:', error);
+      debugError('Error retrieving stored data:', error);
     }
     return null;
   }
@@ -255,7 +277,7 @@ class DataService {
       const response = await fetch(`${API_BASE_URL}/metadata.json`);
       return await response.json();
     } catch (error) {
-      console.error('Error fetching metadata:', error);
+      debugError('Error fetching metadata:', error);
       return null;
     }
   }

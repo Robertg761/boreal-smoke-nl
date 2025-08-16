@@ -142,11 +142,23 @@ class StaticDataGenerator:
     def _generate_metadata_file(self, files_generated: Dict[str, Any]) -> str:
         """Generate metadata about the data update"""
         
+        # Sanitize file paths - only keep filenames, not full paths
+        sanitized_files = {}
+        for key, value in files_generated.items():
+            if isinstance(value, str):
+                # Extract just the filename from the path
+                sanitized_files[key] = Path(value).name
+            elif isinstance(value, list):
+                # For lists of paths, extract just filenames
+                sanitized_files[key] = [Path(v).name for v in value]
+            else:
+                sanitized_files[key] = value
+        
         metadata = {
             'last_updated': datetime.now().isoformat(),
             'next_update': (datetime.now().replace(minute=0, second=0) + 
                           timedelta(minutes=30)).isoformat(),
-            'files': files_generated,
+            'files': sanitized_files,
             'version': '1.0.0',
             'data_sources': [
                 'Canadian Wildland Fire Information System (CWFIS)',

@@ -7,6 +7,7 @@ import os
 import sys
 import json
 import subprocess
+import shutil
 from pathlib import Path
 from datetime import datetime, timedelta, timedelta
 from typing import Dict, Any
@@ -27,7 +28,24 @@ class DataUpdater:
     
     def __init__(self):
         self.root_dir = Path(__file__).parent.parent
-        self.git_path = r"E:\Program Files\Git\bin\git.exe"
+        # Detect git path dynamically - works on all platforms
+        self.git_path = shutil.which('git')
+        if not self.git_path:
+            # Fallback to common locations if not in PATH
+            possible_paths = [
+                'git',  # Try system PATH first
+                '/usr/bin/git',  # Linux/Mac
+                '/usr/local/bin/git',  # Mac with Homebrew
+                r'C:\Program Files\Git\bin\git.exe',  # Windows default
+                r'C:\Program Files (x86)\Git\bin\git.exe',  # Windows 32-bit
+            ]
+            for path in possible_paths:
+                if os.path.exists(path):
+                    self.git_path = path
+                    break
+            else:
+                logger.warning("Git executable not found. Using 'git' and hoping it's in PATH")
+                self.git_path = 'git'
         
         logger.add("data_update.log", rotation="10 MB")
         
