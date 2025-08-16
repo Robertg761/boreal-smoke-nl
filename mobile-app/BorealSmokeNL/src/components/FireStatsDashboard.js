@@ -10,6 +10,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -185,9 +186,9 @@ const FireStatsDashboard = ({ wildfires, isExpanded, onToggle }) => {
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 100,
+    top: Platform.OS === 'ios' ? 50 : 30,
     left: 10,
-    right: 10,
+    right: 10,  // Full width
     backgroundColor: '#FFF',
     borderRadius: 12,
     elevation: 5,

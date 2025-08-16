@@ -4,6 +4,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getFireLocation } from '../utils/locationUtils';
 
 const API_BASE_URL = 'https://robertg761.github.io/boreal-smoke-nl';
 const CACHE_KEY = 'boreal_smoke_data';
@@ -142,7 +143,6 @@ class DataService {
       ...data,
       processedAt: new Date().toISOString(),
       wildfires: this.processWildfires(data.wildfires || []),
-      communities: this.getDefaultCommunities(),
     };
   }
 
@@ -150,34 +150,26 @@ class DataService {
    * Process wildfire data
    */
   processWildfires(wildfires) {
-    return wildfires.map(fire => ({
-      ...fire,
-      displayName: fire.fire_name || `Fire ${fire.fire_id}`,
-      statusColor: this.getStatusColor(fire.status),
-      sizeCategory: this.getSizeCategory(fire.size_hectares),
-    }));
+    return wildfires.map(fire => {
+      // Use our location utilities to get proper fire location
+      const location = getFireLocation(fire);
+      
+      // Debug logging
+      console.log(`Processing fire ${fire.fire_id}:`);
+      console.log(`  Coords: ${fire.latitude}, ${fire.longitude}`);
+      console.log(`  Raw name: ${fire.fire_name}`);
+      console.log(`  Calculated name: ${location.primary}`);
+      
+      return {
+        ...fire,
+        displayName: location.primary, // Use the properly calculated location name
+        locationDetails: location, // Store full location info for potential use
+        statusColor: this.getStatusColor(fire.status),
+        sizeCategory: this.getSizeCategory(fire.size_hectares),
+      };
+    });
   }
 
-  /**
-   * Get default communities list
-   */
-  getDefaultCommunities() {
-    return [
-      { lat: 47.5615, lon: -52.7126, name: "St. John's" },
-      { lat: 47.5189, lon: -52.8061, name: "Mount Pearl" },
-      { lat: 47.5297, lon: -52.9547, name: "Conception Bay South" },
-      { lat: 47.5361, lon: -52.8579, name: "Paradise" },
-      { lat: 47.3875, lon: -53.1356, name: "Holyrood" },
-      { lat: 47.5989, lon: -53.2644, name: "Bay Roberts" },
-      { lat: 47.7369, lon: -53.2144, name: "Carbonear" },
-      { lat: 47.7050, lon: -53.2144, name: "Harbour Grace" },
-      { lat: 47.4816, lon: -52.7971, name: "Torbay" },
-      { lat: 47.3161, lon: -52.9479, name: "Petty Harbour" },
-      { lat: 48.9509, lon: -54.6159, name: "Gander" },
-      { lat: 49.0919, lon: -55.6514, name: "Grand Falls-Windsor" },
-      { lat: 48.3505, lon: -53.9823, name: "Clarenville" },
-    ];
-  }
 
   /**
    * Get status color for wildfire
@@ -185,9 +177,9 @@ class DataService {
   getStatusColor(status) {
     const colors = {
       'OC': '#FF0000',  // Red - Out of Control
-      'BH': '#FFA500',  // Orange - Being Held
-      'UC': '#FFFF00',  // Yellow - Under Control
-      'OUT': '#00FF00', // Green - Out
+      'BH': '#FF9800',  // Orange - Being Held
+      'UC': '#4CAF50',  // Green - Under Control
+      'OUT': '#9E9E9E', // Grey - Extinguished
     };
     return colors[status] || '#808080';
   }
@@ -250,7 +242,6 @@ class DataService {
   getFallbackData() {
     return {
       wildfires: [],
-      communities: this.getDefaultCommunities(),
       error: 'Unable to fetch data. Please check your connection.',
       isOffline: true,
     };

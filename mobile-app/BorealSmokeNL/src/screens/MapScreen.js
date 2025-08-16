@@ -39,43 +39,20 @@ const MapScreen = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState(null);
   const [selectedInfo, setSelectedInfo] = useState(null);
-  const [currentHour, setCurrentHour] = useState(0);
   const [mapType, setMapType] = useState('standard');
   const [showStats, setShowStats] = useState(false);
-  const [showLegend, setShowLegend] = useState(false);
-  const [animationEnabled, setAnimationEnabled] = useState(false); // Disable animation by default for performance
   
   const mapRef = useRef(null);
-  const emergencyPulse = useRef(new Animated.Value(1)).current;
 
   // Load data on mount
   useEffect(() => {
-    let isMounted = true; // Flag to prevent state updates after unmount
-    let animationLoop = null;
+    let isMounted = true;
     
     loadData();
     
-    // Only start animation if enabled (for performance)
-    if (animationEnabled) {
-      animationLoop = Animated.loop(
-        Animated.sequence([
-          Animated.timing(emergencyPulse, {
-            toValue: 1.3,
-            duration: 500,
-            useNativeDriver: true,
-          }),
-          Animated.timing(emergencyPulse, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: true,
-          }),
-        ])
-      );
-      animationLoop.start();
-    }
-    
-    // Subscribe to data updates with mounted check
+    // Subscribe to data updates
     const unsubscribe = DataService.subscribe((newData) => {
       if (isMounted) {
         setData(newData);
@@ -90,35 +67,45 @@ const MapScreen = () => {
     }, 30 * 60 * 1000);
     
     return () => {
-      isMounted = false; // Prevent state updates
-      if (animationLoop) {
-        animationLoop.stop(); // Stop animation
-      }
+      isMounted = false;
       if (unsubscribe) {
-        unsubscribe(); // Unsubscribe from data updates
+        unsubscribe();
       }
-      clearInterval(refreshInterval); // Clear refresh interval
+      clearInterval(refreshInterval);
     };
-  }, [animationEnabled]); // Add animationEnabled as dependency
+  }, []);
 
   /**
    * Load data from service
    */
   const loadData = useCallback(async (showLoader = true) => {
     if (showLoader) setLoading(true);
+    setError(null);
     
     try {
       const fetchedData = await DataService.fetchData();
-      setData(fetchedData);
       
-      // No default selection needed anymore
-    } catch (error) {
-      console.error('Error loading data:', error);
-      Alert.alert(
-        'Error Loading Data',
-        'Unable to load wildfire data. Please check your internet connection.',
-        [{ text: 'OK' }]
-      );
+      // Check if we have offline/error data
+      if (fetchedData.isOffline || fetchedData.error) {
+        setError(fetchedData.error || 'Currently showing offline data');
+      }
+      
+      setData(fetchedData);
+    } catch (err) {
+      console.error('Error loading data:', err);
+      setError('Unable to load wildfire data. Please check your connection.');
+      
+      // Don't show alert if we're refreshing - just show error in UI
+      if (showLoader) {
+        Alert.alert(
+          'Connection Error',
+          'Unable to connect to the wildfire data service. Please check your internet connection and try again.',
+          [
+            { text: 'Retry', onPress: () => loadData(true) },
+            { text: 'OK', style: 'cancel' }
+          ]
+        );
+      }
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -139,25 +126,6 @@ const MapScreen = () => {
   const onFirePress = useCallback((fire) => {
     setSelectedInfo({ type: 'fire', ...fire });
   }, []);
-
-
-  /**
-   * Get current predictions for the selected hour
-   */
-  const getPredictionsForHour = () => {
-    if (!data?.predictions) {
-      return [];
-    }
-    // If predictions is already an array, return it
-    if (Array.isArray(data.predictions)) {
-      return data.predictions;
-    }
-    // If predictions is grouped by hour, return the current hour's predictions
-    if (data.predictions[currentHour]) {
-      return data.predictions[currentHour];
-    }
-    return [];
-  };
 
   /**
    * Get marker size based on fire size - memoized
@@ -297,11 +265,27 @@ const MapScreen = () => {
 
 
   // Show loading screen
-  if (loading) {
+  if (loading && !data) {
     return (
       <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#667eea" />
+        <Icon name="fire" size={48} color="#FF6B6B" style={{ marginBottom: 16 }} />
+        <ActivityIndicator size="large" color="#FF6B6B" />
         <Text style={styles.loadingText}>Loading wildfire data...</Text>
+        <Text style={styles.loadingSubtext}>Fetching latest information from NL Fire Service</Text>
+      </View>
+    );
+  }
+  
+  // Show error screen if no data at all
+  if (!data && error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Icon name="wifi-off" size={48} color="#999" />
+        <Text style={styles.errorTitle}>Connection Error</Text>
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={() => loadData(true)}>
+          <Text style={styles.retryButtonText}>Retry</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -323,39 +307,38 @@ const MapScreen = () => {
         {renderFireMarkers}
       </MapView>
 
-      {/* Map Type Toggle */}
-      <TouchableOpacity
-        style={styles.mapTypeButton}
-        onPress={() => setMapType(mapType === 'standard' ? 'satellite' : 'standard')}
-      >
-        <Icon 
-          name={mapType === 'standard' ? 'satellite-variant' : 'map'} 
-          size={24} 
-          color="#333" 
-        />
-      </TouchableOpacity>
-
-      {/* Fire Statistics Dashboard */}
+      {/* Fire Statistics Dashboard - At the top */}
       <FireStatsDashboard 
         wildfires={data?.wildfires || []}
         isExpanded={showStats}
         onToggle={() => setShowStats(!showStats)}
       />
 
-      {/* Legend Toggle Button */}
-      <TouchableOpacity
-        style={styles.legendToggle}
-        onPress={() => setShowLegend(!showLegend)}
-      >
-        <Icon name="information" size={24} color="#333" />
-      </TouchableOpacity>
+      {/* Side Control Buttons Group */}
+      <View style={styles.sideControls}>
+        {/* Map Type Toggle */}
+        <TouchableOpacity
+          style={styles.controlButton}
+          onPress={() => setMapType(mapType === 'standard' ? 'satellite' : 'standard')}
+        >
+          <Icon 
+            name={mapType === 'standard' ? 'satellite-variant' : 'map'} 
+            size={24} 
+            color="#333" 
+          />
+        </TouchableOpacity>
+
+        {/* Refresh Button */}
+        <TouchableOpacity
+          style={styles.controlButton}
+          onPress={onRefresh}
+        >
+          <Icon name="refresh" size={24} color="#333" />
+        </TouchableOpacity>
+      </View>
       
-      {/* Legend - shown when toggled */}
-      {showLegend && (
-        <View style={styles.legendContainer}>
-          <Legend />
-        </View>
-      )}
+      {/* Legend - always visible */}
+      <Legend />
 
       {/* Info Panel */}
       <InfoPanel 
@@ -363,17 +346,29 @@ const MapScreen = () => {
         onClose={() => setSelectedInfo(null)}
       />
 
-      {/* Refresh Button */}
-      <TouchableOpacity
-        style={styles.refreshButton}
-        onPress={onRefresh}
-      >
-        <Icon name="refresh" size={24} color="#333" />
-      </TouchableOpacity>
-
-      {/* Fire Details Modal removed - using InfoPanel only */}
+      {/* Error Banner */}
+      {error && data && (
+        <View style={styles.errorBanner}>
+          <Icon name="alert-circle" size={16} color="#FFF" />
+          <Text style={styles.errorBannerText}>{error}</Text>
+          <TouchableOpacity onPress={() => setError(null)}>
+            <Icon name="close" size={16} color="#FFF" />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
+};
+
+// UI Constants
+const BUTTON_SIZE = 44;
+const BUTTON_PADDING = 10;
+const STANDARD_SHADOW = {
+  elevation: 4,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.2,
+  shadowRadius: 3,
 };
 
 const styles = StyleSheet.create({
@@ -390,36 +385,86 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5F5F5',
   },
   loadingText: {
-    marginTop: 10,
-    fontSize: 16,
-    color: '#666',
+    marginTop: 12,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
   },
-  topControls: {
+  loadingSubtext: {
+    marginTop: 4,
+    fontSize: 14,
+    color: '#666',
+    fontFamily: Platform.OS === 'ios' ? 'System' : 'Roboto',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
+    padding: 20,
+  },
+  errorTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#333',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  errorText: {
+    fontSize: 14,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 24,
+    paddingHorizontal: 40,
+  },
+  retryButton: {
+    backgroundColor: '#FF6B6B',
+    paddingHorizontal: 32,
+    paddingVertical: 12,
+    borderRadius: 24,
+  },
+  retryButtonText: {
+    color: '#FFF',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  errorBanner: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 30,
+    top: Platform.OS === 'ios' ? 100 : 80,
     left: 10,
     right: 10,
+    backgroundColor: 'rgba(255, 107, 107, 0.95)',
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 12,
+    borderRadius: 8,
+    ...STANDARD_SHADOW,
   },
-  mapTypeButton: {
+  errorBannerText: {
+    flex: 1,
+    color: '#FFF',
+    fontSize: 13,
+    marginLeft: 8,
+  },
+  sideControls: {
     position: 'absolute',
-    top: Platform.OS === 'ios' ? 50 : 30,
     right: 10,
+    bottom: 20,
+    flexDirection: 'row',
+    gap: 10,
+  },
+  controlButton: {
     backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 25,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
+    width: BUTTON_SIZE,
+    height: BUTTON_SIZE,
+    borderRadius: BUTTON_SIZE / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 10,
+    ...STANDARD_SHADOW,
   },
   fireMarker: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 2,
@@ -434,54 +479,6 @@ const styles = StyleSheet.create({
     textShadowColor: 'rgba(0,0,0,0.5)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
-  },
-  communityMarker: {
-    padding: 6,
-    borderRadius: 12,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 2,
-  },
-  legendToggle: {
-    position: 'absolute',
-    left: 10,
-    bottom: 100,
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 25,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
-  },
-  legendContainer: {
-    position: 'absolute',
-    left: 10,
-    bottom: 150,
-    backgroundColor: '#FFF',
-    borderRadius: 8,
-    padding: 10,
-    elevation: 5,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-  },
-  refreshButton: {
-    position: 'absolute',
-    right: 10,
-    bottom: 100,
-    backgroundColor: '#FFF',
-    padding: 10,
-    borderRadius: 25,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
   },
 });
 

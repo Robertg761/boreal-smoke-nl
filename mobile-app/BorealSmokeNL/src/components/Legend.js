@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Legend = () => {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
+  const [animation] = useState(new Animated.Value(0));
 
   const fireStatuses = [
     { status: 'OC', label: 'Out of Control', color: '#FF0000' },
@@ -12,81 +13,85 @@ const Legend = () => {
     { status: 'OUT', label: 'Extinguished', color: '#9E9E9E' },
   ];
 
+  const toggleExpanded = () => {
+    const toValue = expanded ? 0 : 1;
+    Animated.timing(animation, {
+      toValue,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+    setExpanded(!expanded);
+  };
+
   return (
-    <View style={styles.container}>
-      <TouchableOpacity 
-        style={styles.header}
-        onPress={() => setExpanded(!expanded)}
-      >
-        <Text style={styles.title}>Fire Status Legend</Text>
-        <Icon name={expanded ? "chevron-down" : "chevron-up"} size={20} color="#333" />
-      </TouchableOpacity>
-      
-      {expanded && (
-        <View style={styles.legendItems}>
-          {fireStatuses.map((item) => (
-            <View key={item.status} style={styles.legendItem}>
-              <View style={styles.iconWrapper}>
-                <Icon name="fire" size={16} color={item.color} />
-              </View>
-              <Text style={styles.statusCode}>{item.status}</Text>
-              <Text style={styles.statusLabel}>{item.label}</Text>
-            </View>
-          ))}
+    <TouchableOpacity 
+      style={[styles.container, expanded && styles.containerExpanded]} 
+      onPress={toggleExpanded}
+      activeOpacity={0.8}
+    >
+      {fireStatuses.map((item, index) => (
+        <View key={item.status} style={styles.legendItem}>
+          <View style={[styles.colorDot, { backgroundColor: item.color }]} />
+          <View style={styles.textContainer}>
+            <Text style={styles.statusLabel}>{item.status}</Text>
+            {expanded && (
+              <Text style={styles.fullLabel}>{item.label}</Text>
+            )}
+          </View>
         </View>
-      )}
-    </View>
+      ))}
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     position: 'absolute',
-    top: 60,
-    right: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: 10,
-    padding: 10,
-    elevation: 5,
+    bottom: 20,
+    left: 10,
+    flexDirection: 'row',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.2,
     shadowRadius: 2,
+    gap: 15,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  title: {
-    fontWeight: 'bold',
-    fontSize: 14,
-    color: '#333',
-  },
-  legendItems: {
-    marginTop: 8,
+  containerExpanded: {
+    flexDirection: 'column',
+    paddingVertical: 12,
+    gap: 8,
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 3,
+    gap: 6,
   },
-  iconWrapper: {
-    width: 24,
-    height: 24,
-    justifyContent: 'center',
+  textContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginRight: 8,
+    gap: 6,
   },
-  statusCode: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: '#333',
-    width: 35,
+  colorDot: {
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
   },
   statusLabel: {
     fontSize: 12,
-    color: '#555',
+    color: '#333',
+    fontWeight: '600',
+    minWidth: 35,
+  },
+  fullLabel: {
+    fontSize: 11,
+    color: '#666',
   },
 });
 
