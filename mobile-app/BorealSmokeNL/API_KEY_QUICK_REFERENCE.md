@@ -21,11 +21,9 @@ Make sure these are enabled in your Google Cloud Project:
 - ✅ Maps SDK for Android
 - ✅ Maps SDK for iOS
 
-### Exposed Key to Delete/Rotate
-```
-AIzaSyCu1xWwaWEHNm714LOauCZaDVg_q7X_Chw
-```
-⚠️ **DELETE THIS KEY IMMEDIATELY in Google Cloud Console**
+### Security Note
+⚠️ **Never commit API keys to version control!**
+Always store them in local configuration files that are gitignored.
 
 ### Testing Your New Key
 After setting up the new key:

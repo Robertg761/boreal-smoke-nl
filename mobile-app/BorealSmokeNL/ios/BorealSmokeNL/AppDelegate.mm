@@ -9,10 +9,13 @@
   self.moduleName = @"BorealSmokeNL";
   
   // Initialize Google Maps SDK
-  // IMPORTANT: This API key should be moved to a secure configuration file
-  // DO NOT commit this key to version control
-  // iOS-specific API key (restricted to bundle ID: org.reactjs.native.example.BorealSmokeNL)
-  NSString *apiKey = @"AIzaSyAG9WYo781_nPcrOFjkHzudD6SH7lpKstw";
+  // Load API key from Config.xcconfig (not in version control)
+  NSString *apiKey = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GoogleMapsAPIKey"];
+  
+  if (!apiKey || [apiKey length] == 0) {
+    NSLog(@"⚠️ WARNING: Google Maps API key not found in Config.xcconfig");
+    apiKey = @""; // Empty string to prevent crash
+  }
   
   // Add debug logging
   NSLog(@"Attempting to initialize Google Maps SDK...");
