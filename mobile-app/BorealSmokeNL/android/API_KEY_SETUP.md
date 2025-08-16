@@ -14,7 +14,10 @@
 In Google Cloud Console, add these restrictions:
 - **Application restrictions:** Android apps
 - **Package name:** `com.borealsmokenl`
-- **SHA-1 fingerprints:** Add both debug and release certificates
+- **SHA-1 fingerprints:** 
+  - **Debug certificate:** `5E:8F:16:06:2E:A3:CD:2C:4A:0D:54:78:76:BA:A6:F3:8C:AB:F6:25`
+  - **Release certificate:** You'll need to generate this when creating a release build
+  - **Test certificate (optional):** `E2:AB:D8:0E:7D:FA:BD:C4:D3:5D:DE:3F:9A:54:22:3C:C9:F0:96:D2`
 
 ### 3. Store Key Securely (Choose one method):
 
